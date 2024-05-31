@@ -26,7 +26,6 @@
 @media (max-width: 991px) {
     .card {
         margin-top: 40px;
-        padding: 0 20px;
     }
 }
 
@@ -114,13 +113,6 @@
     font: 800 20px Inter, sans-serif;
 }
 
-@media (max-width: 991px) {
-    .signup-button {
-        white-space: initial;
-        padding: 0 20px;
-    }
-}
-
 .image-group {
     display: flex;
     flex-direction: column;
@@ -136,7 +128,6 @@
 
 .img-responsive {
     aspect-ratio: 1.01;
-    object-fit: auto;
     object-position: center;
     width: 100%;
     margin: auto 0;
@@ -145,7 +136,7 @@
 @media (max-width: 991px) {
     .img-responsive {
         margin-top: 40px;
-        display: flex;
+        display: none;
     }
 }
 
