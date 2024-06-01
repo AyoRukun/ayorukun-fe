@@ -1,34 +1,17 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../states/auth/authSlice';
+import { useSelector } from 'react-redux';
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 function HomePage() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { user, token } = useSelector(state => state.auth);
-
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate('/login');
-    };
+    const { user, isAuthenticated } = useSelector(state => state.auth);
 
     return (
-        <>
-            <h1>HomePage</h1>
-
-            {user ? (
-                <>
-                    <p>Selamat datang, {user.name}!</p>
-                    <button onClick={handleLogout}>Logout</button>
-                </>
-            ) : (
-                <>
-                    <Link to={"/login"}><h2>Login</h2></Link>
-                    <Link to={"/register"}><h2>Register</h2></Link>
-                </>
-            )}
-        </>
+        <Box sx={{ my: 4, textAlign: 'center' }}>
+            <Typography variant="h4" component="h1" gutterBottom>
+                {isAuthenticated ? `Halo, ${user.name}` : 'Halo'}
+            </Typography>
+        </Box>
     );
 }
 
