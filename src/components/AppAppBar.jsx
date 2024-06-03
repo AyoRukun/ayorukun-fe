@@ -39,12 +39,12 @@ function AppAppBar() {
                 padding: 0,
                 margin: 0,
                 boxShadow: 0,
-                bgcolor: 'transparent',
+                bgcolor: '#FADEFF',
                 backgroundImage: 'none',
-                mt: 2,
+                mt: 1
             }}
         >
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" sx={{ bgcolor: '#FADEFF'}}>
                 <Toolbar
                     variant="regular"
                     sx={(theme) => ({
