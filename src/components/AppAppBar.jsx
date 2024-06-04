@@ -41,7 +41,7 @@ function AppAppBar() {
                 boxShadow: 0,
                 bgcolor: '#FADEFF',
                 backgroundImage: 'none',
-                mt: 1
+                pt: 1
             }}
         >
             <Container maxWidth="lg" sx={{ bgcolor: '#FADEFF'}}>
@@ -76,7 +76,7 @@ function AppAppBar() {
                         }}
                     >
                         {/*<Sitemark />*/}
-                        <Box sx={{ 
+                        <Box sx={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
