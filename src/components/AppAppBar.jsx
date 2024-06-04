@@ -35,13 +35,16 @@ function AppAppBar() {
         <AppBar
             position="fixed"
             sx={{
+                boxSizing: 'border-box',
+                padding: 0,
+                margin: 0,
                 boxShadow: 0,
-                bgcolor: 'transparent',
+                bgcolor: '#FADEFF',
                 backgroundImage: 'none',
-                mt: 2,
+                mt: 1
             }}
         >
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" sx={{ bgcolor: '#FADEFF'}}>
                 <Toolbar
                     variant="regular"
                     sx={(theme) => ({
@@ -73,8 +76,15 @@ function AppAppBar() {
                         }}
                     >
                         {/*<Sitemark />*/}
-                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <Button
+                        <Box sx={{ 
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                            <Button sx={{
+                                padding: '20px',
+                                color: 'primary'
+                            }}
                                 variant="text"
                                 color="info"
                                 size="small"
@@ -82,9 +92,11 @@ function AppAppBar() {
                                     navigate(ROUTE_PATHS.HOME, { replace: true });
                                 }}
                             >
-                                Home
+                                Beranda
                             </Button>
-                            <Button
+                            <Button sx={{
+                                padding: '20px'
+                            }}
                                 variant="text"
                                 color="info"
                                 size="small"
@@ -92,7 +104,31 @@ function AppAppBar() {
                                     navigate(ROUTE_PATHS.DISCUSSION, { replace: true });
                                 }}
                             >
-                                Discussion
+                                Forum Diskusi
+                            </Button>
+                            <Button sx={{
+                                padding: '20px'
+                            }}
+                                variant="text"
+                                color="info"
+                                size="small"
+                                onClick={() => {
+                                    navigate(ROUTE_PATHS.REPORT, { replace: true });
+                                }}
+                            >
+                                Pelaporan
+                            </Button>
+                            <Button sx={{
+                                padding: '20px'
+                            }}
+                                variant="text"
+                                color="info"
+                                size="small"
+                                onClick={() => {
+                                    navigate(ROUTE_PATHS.ABOUT, { replace: true });
+                                }}
+                            >
+                                Tentang
                             </Button>
 
                         </Box>

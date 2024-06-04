@@ -14,6 +14,8 @@ import SignUp from "./pages/SignUp.jsx";
 import AppAppBar from "./components/AppAppBar.jsx";
 import Discussion from "./pages/Discussion.jsx";
 import DiscussionDetail from "./pages/DiscussionDetail.jsx";
+import ReportPage from "./pages/ReportPage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 
 const routeConfig  = [
     { path: ROUTE_PATHS.HOME, element: <HomePage /> },
@@ -23,6 +25,8 @@ const routeConfig  = [
     { path: ROUTE_PATHS.SIGN_UP, element: <GuestRoute element={<SignUp/>} /> },
     { path: ROUTE_PATHS.DISCUSSION, element: <Discussion /> },
     { path: ROUTE_PATHS.DISCUSSION_DETAIL, element: <DiscussionDetail /> },
+    { path: ROUTE_PATHS.REPORT, element: <ReportPage /> },
+    { path: ROUTE_PATHS.ABOUT, element: <AboutPage /> },
 ];
 
 function App() {
