@@ -16,6 +16,7 @@ import Discussion from "./pages/Discussion.jsx";
 import DiscussionDetail from "./pages/DiscussionDetail.jsx";
 import ReportPage from "./pages/ReportPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
+import AppFooter from "./components/AppFooter.jsx";
 
 const routeConfig  = [
     { path: ROUTE_PATHS.HOME, element: <HomePage /> },
@@ -41,7 +42,7 @@ function App() {
     }, [dispatch, token]);
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <AppAppBar/>
             <Box component="main" justifyContent="center" alignItems="center" minHeight="100vh" minWidth="100%">
                 <Toolbar />
@@ -53,6 +54,7 @@ function App() {
                     </Routes>
                 </Box>
             </Box>
+            <AppFooter />
         </Box>
     );
 }

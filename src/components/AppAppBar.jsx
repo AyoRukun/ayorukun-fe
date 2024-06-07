@@ -40,8 +40,7 @@ function AppAppBar() {
                 margin: 0,
                 boxShadow: 0,
                 bgcolor: '#FADEFF',
-                backgroundImage: 'none',
-                mt: 1
+                backgroundImage: 'none'
             }}
         >
             <Container maxWidth="lg" sx={{ bgcolor: '#FADEFF'}}>

@@ -11,7 +11,7 @@ function HomePage() {
     const navigate = useNavigate();
 
     return (
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', boxSizing: 'border-box', textAlign: 'center', backgroundImage: 'url(/img/background4.png)', backgroundSize: 'cover', height: '90vh', mr: 0 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', boxSizing: 'border-box', textAlign: 'center', backgroundImage: 'url(/img/background4.png)', backgroundSize: 'cover', height: '100vh', mr: 0 }}>
             <Box sx={{
                     display: 'flex', 
                     alignItems: 'center',
