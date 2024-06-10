@@ -10,7 +10,7 @@ function AboutPage() {
     const { user, isAuthenticated } = useSelector(state => state.auth);
 
     return (
-        <Box sx={{ my: 4, textAlign: 'center'}}>
+        <Box sx={{ textAlign: 'center'}}>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 6 }}>
                 <Grid item xs={6}>
                     <Box sx={{ backgroundImage: 'url(/img/dontbully.png)', backgroundSize: 'cover', height: '100vh'}}>
@@ -30,7 +30,7 @@ function AboutPage() {
                     </Typography>
                 </Grid>
             </Grid>
-            <Box sx={{ bgcolor: '#FADEFF' , height: '70vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: 10 }}>
+            <Box sx={{ bgcolor: '#FADEFF' , height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: 10 }}>
                 <Typography variant='h3' component="h1" gutterBottom>Meet Our Team</Typography>
                 <Stack direction="row" spacing={20}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
