@@ -15,11 +15,22 @@ import CommentIcon from '@mui/icons-material/Comment';
 import { ROUTE_PATHS } from '../routes/index.js';
 import formatRelativeTime from "../utils/date.js";
 import {ThumbUp, ThumbUpOffAlt} from "@mui/icons-material";
+import {likeDiscussionById, unlikeDiscussionById} from "../states/discussion/discusssionSlice.js";
+import {useDispatch, useSelector} from "react-redux";
 
 function DiscussionItem({ discussion }) {
-    const { id, title, content, user, totalComments, createdAt } = discussion;
+    const dispatch = useDispatch();
+    const { id, title, content, user, totalComments, createdAt, likedBy } = discussion;
+    const userId = useSelector(state => state.auth.user?.id);
+    const isLiked = likedBy?.includes(userId);
 
-    const [isLiked, setIsLiked] = useState(false);
+    const handleLikeClick = () => {
+        if (isLiked) {
+            dispatch(unlikeDiscussionById(id));
+        } else {
+            dispatch(likeDiscussionById(id));
+        }
+    };
 
     return (
         <Card sx={{ mt: 2 }}>
@@ -67,11 +78,15 @@ function DiscussionItem({ discussion }) {
                 <Stack direction="row" justifyContent="flex-end" alignItems="center" sx={{ width: '100%' }}>
                     <Stack direction="row" spacing={1.2}>
                         <Stack direction="row" alignItems="center">
-                            <IconButton>
-                                {isLiked ? <ThumbUp sx={{ fontSize: '20px', color: 'red' }} /> : <ThumbUpOffAlt sx={{ fontSize: '20px' }} />}
+                            <IconButton onClick={handleLikeClick}>
+                                {isLiked ? (
+                                    <ThumbUp sx={{ fontSize: '20px' }} />
+                                ) : (
+                                    <ThumbUpOffAlt sx={{ fontSize: '20px' }} />
+                                )}
                             </IconButton>
                             <Typography variant="subtitle2" color="text.secondary">
-                                {0}
+                                {likedBy?.length || 0}
                             </Typography>
                             <IconButton>
                                 <CommentIcon sx={{ fontSize: '20px' }} />

@@ -3,7 +3,7 @@ import {
     getDiscussionList,
     createDiscussion,
     getDiscussionDetail,
-    createDiscussionComment
+    createDiscussionComment, unlikeDiscussionComment, likeDiscussionComment, unlikeDiscussion, likeDiscussion
 } from '../../utils/api.js';
 import {hideLoading, showLoading} from "react-redux-loading-bar";
 
@@ -75,6 +75,54 @@ export const addDiscussionComment = createAsyncThunk(
     }
 );
 
+export const likeDiscussionById = createAsyncThunk(
+    'discussions/likeDiscussionById',
+    async (discussionId, { rejectWithValue }) => {
+        try {
+            const response = await likeDiscussion(discussionId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const unlikeDiscussionById = createAsyncThunk(
+    'discussions/unlikeDiscussionById',
+    async (discussionId, { rejectWithValue }) => {
+        try {
+            const response = await unlikeDiscussion(discussionId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const likeCommentById = createAsyncThunk(
+    'discussions/likeCommentById',
+    async ({ discussionId, commentId, userId }, { rejectWithValue }) => {
+        try {
+            const response = await likeDiscussionComment(discussionId, commentId, userId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const unlikeCommentById = createAsyncThunk(
+    'discussions/unlikeCommentById',
+    async ({ discussionId, commentId }, { rejectWithValue }) => {
+        try {
+            const response = await unlikeDiscussionComment(discussionId, commentId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 const discussionSlice = createSlice({
     name: 'discussions',
     initialState,
@@ -132,7 +180,44 @@ const discussionSlice = createSlice({
             .addCase(addDiscussionComment.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+            })
+
+            // Like Discussion
+            .addCase(likeDiscussionById.fulfilled, (state, action) => {
+                state.discussions = state.discussions.map(discussion =>
+                    discussion.id === action.payload.id
+                        ? { ...discussion, likedBy: [...discussion.likedBy, action.payload.userId] } // Add userId to likedBy
+                        : discussion
+                );
+            })
+
+            // Unlike Discussion
+            .addCase(unlikeDiscussionById.fulfilled, (state, action) => {
+                state.discussions = state.discussions.map(discussion =>
+                    discussion.id === action.payload.id
+                        ? { ...discussion, likedBy: discussion.likedBy.filter(id => id !== action.payload.userId) } // Remove userId
+                        : discussion
+                );
+            })
+
+            // Like Comment
+            .addCase(likeCommentById.fulfilled, (state, action) => {
+                state.comments[action.payload.discussionId] = state.comments[action.payload.discussionId].map(comment =>
+                    comment.id === action.payload.id
+                        ? { ...comment, likedBy: [...comment.likedBy, action.payload.userId] }
+                        : comment
+                );
+            })
+
+            // Unlike Comment
+            .addCase(unlikeCommentById.fulfilled, (state, action) => {
+                state.comments[action.payload.discussionId] = state.comments[action.payload.discussionId].map(comment =>
+                    comment.id === action.payload.id
+                        ? { ...comment, likedBy: comment.likedBy.filter(id => id !== action.payload.userId) }
+                        : comment
+                );
             });
+
     },
 });
 
