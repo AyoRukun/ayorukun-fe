@@ -4,14 +4,30 @@ import React, {useState} from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import Divider from "@mui/material/Divider";
 import {ThumbUp, ThumbUpOffAlt} from "@mui/icons-material";
+import {useDispatch, useSelector} from "react-redux";
+import {likeCommentById, unlikeCommentById} from "../states/discussion/discusssionSlice.js";
+import {likeReportCommentById, unlikeReportCommentById} from "../states/report/reportSlice.js";
 
 
-function CommentItem({comment}) {
-
-    const [isLiked, setIsLiked] = useState(false);
+function CommentItem({ comment, source }) {
+    const dispatch = useDispatch();
+    const userId = useSelector(state => state.auth.user?.id);
+    const isLiked = comment?.likedBy?.includes(userId);
 
     const handleLikeClick = () => {
-        setIsLiked(!isLiked);
+        if (isLiked) {
+            if (source === 'discussion') {
+                dispatch(unlikeCommentById({ discussionId: comment.discussion_id, commentId: comment.id, userId }));
+            } else if (source === 'report') {
+                dispatch(unlikeReportCommentById({ reportId: comment.report_id, commentId: comment.id, userId }));
+            }
+        } else {
+            if (source === 'discussion') {
+                dispatch(likeCommentById({ discussionId: comment.discussion_id, commentId: comment.id, userId }));
+            } else if (source === 'report') {
+                dispatch(likeReportCommentById({ reportId: comment.report_id, commentId: comment.id, userId }));
+            }
+        }
     };
 
     return (
@@ -44,10 +60,15 @@ function CommentItem({comment}) {
                 <Stack direction="row" justifyContent="flex-end" sx={{ width: '100%' }}>
                     <Stack direction="row" spacing={1.2}>
                         <Stack direction="row" alignItems="center">
-                            <IconButton>
-                                {isLiked ? <ThumbUp sx={{ fontSize: '20px', color: 'red' }} /> : <ThumbUpOffAlt sx={{ fontSize: '20px' }} />}                            </IconButton>
+                            <IconButton onClick={handleLikeClick}>
+                                {isLiked ? (
+                                    <ThumbUp sx={{ fontSize: '20px' }} />
+                                ) : (
+                                    <ThumbUpOffAlt sx={{ fontSize: '20px' }} />
+                                )}
+                            </IconButton>
                             <Typography variant="subtitle2" color="text.secondary">
-                                {1}
+                                {comment.likedBy?.length || 0}
                             </Typography>
                         </Stack>
                     </Stack>

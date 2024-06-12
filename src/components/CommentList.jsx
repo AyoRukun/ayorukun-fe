@@ -9,7 +9,7 @@ import {AddCircle} from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 
 
-function CommentList({comments, handleNewCommentSubmit}) {
+function CommentList({comments, handleNewCommentSubmit, source}) {
     const [openDialog, setOpenDialog] = useState(false);
 
     const handleOpenDialog = () => {
@@ -48,7 +48,7 @@ function CommentList({comments, handleNewCommentSubmit}) {
             <CardContent>
                 <Stack direction="column" spacing={2}>
                     {sortByCreatedAt(comments).map((comment) => (
-                        <CommentItem key={comment.id} comment={comment}/>
+                        <CommentItem key={comment.id} comment={comment} source={source}/>
                     ))}
                 </Stack>
             </CardContent>
