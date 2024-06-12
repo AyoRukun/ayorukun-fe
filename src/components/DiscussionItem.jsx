@@ -34,23 +34,23 @@ function DiscussionItem({discussion}) {
 
     return (
         <Card sx={{mt: 2}}>
-            <CardHeader
-                avatar={<Avatar aria-label="user-avatar" src={user.image_url}/>}
-                title={
-                    <ButtonBase
-                        component={Link}
-                        to={`${ROUTE_PATHS.DISCUSSION}/${id}`}
-                        sx={{width: '100%', justifyContent: 'left'}}
-                    >
+            <ButtonBase
+                component={Link}
+                to={`${ROUTE_PATHS.DISCUSSION}/${id}`}
+                sx={{width: '100%', justifyContent: 'left'}}
+            >
+                <CardHeader
+                    avatar={<Avatar aria-label="user-avatar" src={user.image_url}/>}
+                    title={
                         <Typography variant="h5">{title || 'Untitled Discussion'}</Typography>
-                    </ButtonBase>
-                }
-                subheader={
-                    <Typography variant="caption" color="text.secondary">
-                        {`Oleh ${user.username} - ${formatRelativeTime(createdAt)}`}
-                    </Typography>
-                }
-            />
+                    }
+                    subheader={
+                        <Typography variant="caption" color="text.secondary">
+                            {`Oleh ${user.username} - ${formatRelativeTime(createdAt)}`}
+                        </Typography>
+                    }
+                />
+            </ButtonBase>
 
             <ButtonBase
                 component={Link}
