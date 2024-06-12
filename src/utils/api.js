@@ -219,3 +219,65 @@ export async function unlikeReportComment(reportId, commentId) {
     throw error.response ? error.response.data : new Error('Network error');
   }
 }
+
+export async function likeDiscussion(discussionId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.post(`${BASE_URL}/discussions/${discussionId}/like`, {}, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
+
+export async function unlikeDiscussion(discussionId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.post(`${BASE_URL}/discussions/${discussionId}/unlike`, {}, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
+
+export async function likeDiscussionComment(discussionId, commentId, userId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+
+    const data = {
+      comment_id: commentId,
+      user_id: userId
+    };
+
+    const response = await axios.post(`${BASE_URL}/discussions/${discussionId}/comments/${commentId}/like`, data, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
+
+export async function unlikeDiscussionComment(discussionId, commentId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.post(`${BASE_URL}/discussions/${discussionId}/comments/${commentId}/unlike`, {}, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
