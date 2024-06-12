@@ -163,3 +163,59 @@ export async function getReportDetail(reportId) {
     throw error.response ? error.response.data : new Error('Network error');
   }
 }
+
+export async function likeReport(reportId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.post(`${BASE_URL}/reports/${reportId}/like`, {}, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
+
+export async function unlikeReport(reportId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.post(`${BASE_URL}/reports/${reportId}/unlike`, {}, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
+
+export async function likeReportComment(reportId, commentId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.post(`${BASE_URL}/reports/${reportId}/comments/${commentId}/like`, {}, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
+
+export async function unlikeReportComment(reportId, commentId) {
+  try {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.post(`${BASE_URL}/reports/${reportId}/comments/${commentId}/unlike`, {}, { headers });
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error('Network error');
+  }
+}
