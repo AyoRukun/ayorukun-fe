@@ -22,7 +22,7 @@ export async function loginUser(email, password) {
 
 export async function checkToken() {
   try {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -67,9 +67,9 @@ export async function createDiscussionComment(discussionId, commentData) {
     };
 
     const response = await axios.post(
-        `${BASE_URL}/discussions/${discussionId}/comments`,
-        commentData,
-        { headers }
+      `${BASE_URL}/discussions/${discussionId}/comments`,
+      commentData,
+      { headers },
     );
 
     return response.data;
@@ -135,9 +135,9 @@ export async function createReportComment(reportId, commentData) {
     };
 
     const response = await axios.post(
-        `${BASE_URL}/reports/${reportId}/comments`,
-        commentData,
-        { headers }
+      `${BASE_URL}/reports/${reportId}/comments`,
+      commentData,
+      { headers },
     );
 
     return response.data;
@@ -157,7 +157,7 @@ export async function getReportList() {
 
 export async function getReportDetail(reportId) {
   try {
-    const response = await axios.get(`${BASE_URL}/reports/${reportId}`)
+    const response = await axios.get(`${BASE_URL}/reports/${reportId}`);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : new Error('Network error');
@@ -253,12 +253,12 @@ export async function likeDiscussionComment(discussionId, commentId, userId) {
     const token = localStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
 
     const data = {
       comment_id: commentId,
-      user_id: userId
+      user_id: userId,
     };
 
     const response = await axios.post(`${BASE_URL}/discussions/${discussionId}/comments/${commentId}/like`, data, { headers });
