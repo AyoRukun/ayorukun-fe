@@ -185,12 +185,6 @@ function ReportDetail() {
                                 <Stack direction="row" spacing={1.2}>
                                     <Stack direction="row" alignItems="center">
                                         <IconButton>
-                                            {isLiked ? <ThumbUp sx={{ fontSize: '20px', color: 'red' }} /> : <ThumbUpOffAlt sx={{ fontSize: '20px' }} />}
-                                        </IconButton>
-                                        <Typography variant="subtitle2" color="text.secondary">
-                                            {0}
-                                        </Typography>
-                                        <IconButton>
                                             <CommentIcon sx={{ fontSize: '20px' }} />
                                         </IconButton >
                                         <Typography variant="subtitle2" color="text.secondary" sx={{mr: 2}}>
@@ -203,7 +197,7 @@ function ReportDetail() {
 
                     </Card>
 
-                    <CommentList comments={report.comments } handleNewCommentSubmit={handleCommentSubmit}/>
+                    <CommentList comments={report.comments } handleNewCommentSubmit={handleCommentSubmit} source={'report'}/>
 
 
                     {/*<Card sx={{ mt: 2 }}>*/}

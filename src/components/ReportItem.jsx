@@ -20,16 +20,24 @@ import formatRelativeTime from "../utils/date.js";
 import CommentIcon from "@mui/icons-material/Comment";
 import {ThumbUp, ThumbUpOffAlt} from "@mui/icons-material";
 import Box from "@mui/material/Box";
+import {useDispatch, useSelector} from "react-redux";
+import {likeReportById, unlikeReportById} from "../states/report/reportSlice.js";
 
 
 function ReportItem({report}) {
+    const dispatch = useDispatch();
+    const userId = useSelector(state => state.auth.user?.id);
+    const isLiked = report.likedBy?.includes(userId);
+
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
 
-    const [isLiked, setIsLiked] = useState(false);
-
     const handleLikeClick = () => {
-        setIsLiked(!isLiked);
+        if (isLiked) {
+            dispatch(unlikeReportById(report.id));
+        } else {
+            dispatch(likeReportById(report.id));
+        }
     };
 
     const handleImageClick = (imageUrl) => {
@@ -148,11 +156,15 @@ function ReportItem({report}) {
 
                     <Stack direction="row" spacing={1.2}>
                         <Stack direction="row" alignItems="center">
-                            <IconButton>
-                                {isLiked ? <ThumbUp sx={{ fontSize: '20px', color: 'red' }} /> : <ThumbUpOffAlt sx={{ fontSize: '20px' }} />}
+                            <IconButton onClick={handleLikeClick} >
+                                {isLiked ? (
+                                    <ThumbUp sx={{ fontSize: '20px'}} />
+                                ) : (
+                                    <ThumbUpOffAlt sx={{ fontSize: '20px' }} />
+                                )}
                             </IconButton>
                             <Typography variant="subtitle2" color="text.secondary">
-                                {0}
+                                {report.likedBy?.length || 0}
                             </Typography>
                             <IconButton>
                                 <CommentIcon sx={{ fontSize: '20px' }} />

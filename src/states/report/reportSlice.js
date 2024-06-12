@@ -3,7 +3,7 @@ import {
     createReport,
     createReportComment,
     getReportList,
-    getReportDetail,
+    getReportDetail, unlikeReportComment, unlikeReport, likeReportComment, likeReport,
 } from '../../utils/api.js';
 import {hideLoading, showLoading} from "react-redux-loading-bar";
 
@@ -75,12 +75,73 @@ export const addReportComment = createAsyncThunk(
     }
 );
 
+export const likeReportById = createAsyncThunk(
+    'reports/likeReportById',
+    async (reportId, { dispatch, rejectWithValue }) => {
+        dispatch(showLoading());
+        try {
+            const response = await likeReport(reportId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        } finally {
+            dispatch(hideLoading());
+        }
+    }
+);
+
+export const unlikeReportById = createAsyncThunk(
+    'reports/unlikeReportById',
+    async (reportId, { dispatch, rejectWithValue }) => {
+        dispatch(showLoading());
+        try {
+            const response = await unlikeReport(reportId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        } finally {
+            dispatch(hideLoading());
+        }
+    }
+);
+
+export const likeReportCommentById = createAsyncThunk(
+    'reports/likeReportCommentById',
+    async ({ reportId, commentId }, { dispatch, rejectWithValue }) => {
+        dispatch(showLoading());
+        try {
+            const response = await likeReportComment(reportId, commentId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        } finally {
+            dispatch(hideLoading());
+        }
+    }
+);
+
+export const unlikeReportCommentById = createAsyncThunk(
+    'reports/unlikeReportCommentById',
+    async ({ reportId, commentId }, { dispatch, rejectWithValue }) => {
+        dispatch(showLoading());
+        try {
+            const response = await unlikeReportComment(reportId, commentId);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        } finally {
+            dispatch(hideLoading());
+        }
+    }
+);
+
 const reportSlice = createSlice({
     name: 'reports',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
+            // fetch Reports
             .addCase(fetchReports.pending, (state) => {
                 state.isLoading = true;
             })
@@ -92,6 +153,8 @@ const reportSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
             })
+
+            // Fetch Report Detail
             .addCase(fetchReportDetail.pending, (state) => {
                 state.isLoading = true;
             })
@@ -103,6 +166,8 @@ const reportSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
             })
+
+            // Add Report
             .addCase(addReport.pending, (state) => {
                 state.isLoading = true;
             })
@@ -113,6 +178,8 @@ const reportSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
             })
+
+            // Add Report Comment
             .addCase(addReportComment.pending, (state) => {
                 state.isLoading = true;
             })
@@ -125,6 +192,46 @@ const reportSlice = createSlice({
             .addCase(addReportComment.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+            })
+
+            // Like Report
+            .addCase(likeReportById.fulfilled, (state, action) => {
+                const { reportId, userId } = action.payload.vote;
+                state.reports = state.reports.map(report =>
+                    report.id === reportId
+                        ? { ...report, likedBy: [...report.likedBy, userId] }
+                        : report
+                );
+            })
+
+            // Unlike Report
+            .addCase(unlikeReportById.fulfilled, (state, action) => {
+                const { reportId, userId } = action.payload.vote;
+                state.reports = state.reports.map(report =>
+                    report.id === reportId
+                        ? { ...report, likedBy: report.likedBy.filter(id => id !== userId) }
+                        : report
+                );
+            })
+
+            // Like Report Comment
+            .addCase(likeReportCommentById.fulfilled, (state, action) => {
+                const { reportId, commentId, userId } = action.payload.vote;
+                state.comments[reportId] = state.comments[reportId]?.map(comment =>
+                    comment.id === commentId
+                        ? { ...comment, likedBy: [...comment.likedBy, userId] }
+                        : comment
+                );
+            })
+
+            // Unlike Report Comment
+            .addCase(unlikeReportCommentById.fulfilled, (state, action) => {
+                const { reportId, commentId, userId } = action.payload.vote;
+                state.comments[reportId] = state.comments[reportId]?.map(comment =>
+                    comment.id === commentId
+                        ? { ...comment, likedBy: comment.likedBy.filter(id => id !== userId) }
+                        : comment
+                );
             });
     },
 });
