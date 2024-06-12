@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {ROUTE_PATHS} from "../routes/index.js";
+import { ROUTE_PATHS } from '../routes/index.jsx';
 
-const GuestRoute = ({ element }) => {
-    const { isAuthenticated } = useSelector(state => state.auth);
+function GuestRoute({ element }) {
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-    return isAuthenticated ? <Navigate to={ROUTE_PATHS.HOME} /> : element;
-};
+  return isAuthenticated ? <Navigate to={ROUTE_PATHS.HOME} /> : element;
+}
 
 export default GuestRoute;

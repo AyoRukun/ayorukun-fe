@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import {Link} from 'react-router-dom';
 import {
     Avatar,
     ButtonBase,
@@ -12,15 +12,15 @@ import {
     Typography
 } from '@mui/material';
 import CommentIcon from '@mui/icons-material/Comment';
-import { ROUTE_PATHS } from '../routes/index.js';
+import {ROUTE_PATHS} from '../routes/index.jsx';
 import formatRelativeTime from "../utils/date.js";
 import {ThumbUp, ThumbUpOffAlt} from "@mui/icons-material";
 import {likeDiscussionById, unlikeDiscussionById} from "../states/discussion/discusssionSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 
-function DiscussionItem({ discussion }) {
+function DiscussionItem({discussion}) {
     const dispatch = useDispatch();
-    const { id, title, content, user, totalComments, createdAt, likedBy } = discussion;
+    const {id, title, content, user, totalComments, createdAt, likedBy} = discussion;
     const userId = useSelector(state => state.auth.user?.id);
     const isLiked = likedBy?.includes(userId);
 
@@ -33,16 +33,16 @@ function DiscussionItem({ discussion }) {
     };
 
     return (
-        <Card sx={{ mt: 2 }}>
+        <Card sx={{mt: 2}}>
             <CardHeader
-                avatar={<Avatar aria-label="user-avatar" src={user.image_url} />}
+                avatar={<Avatar aria-label="user-avatar" src={user.image_url}/>}
                 title={
                     <ButtonBase
                         component={Link}
                         to={`${ROUTE_PATHS.DISCUSSION}/${id}`}
-                        sx={{ width: '100%', justifyContent: 'left' }}
+                        sx={{width: '100%', justifyContent: 'left'}}
                     >
-                        <Typography variant="h5">{title || 'Untitled Discussion' }</Typography>
+                        <Typography variant="h5">{title || 'Untitled Discussion'}</Typography>
                     </ButtonBase>
                 }
                 subheader={
@@ -55,7 +55,7 @@ function DiscussionItem({ discussion }) {
             <ButtonBase
                 component={Link}
                 to={`${ROUTE_PATHS.DISCUSSION}/${id}`}
-                sx={{ width: '100%', justifyContent: 'left' }}
+                sx={{width: '100%', justifyContent: 'left'}}
             >
                 <CardContent>
                     <Typography
@@ -75,22 +75,22 @@ function DiscussionItem({ discussion }) {
             </ButtonBase>
 
             <CardActions>
-                <Stack direction="row" justifyContent="flex-end" alignItems="center" sx={{ width: '100%' }}>
+                <Stack direction="row" justifyContent="flex-end" alignItems="center" sx={{width: '100%'}}>
                     <Stack direction="row" spacing={1.2}>
                         <Stack direction="row" alignItems="center">
                             <IconButton onClick={handleLikeClick}>
                                 {isLiked ? (
-                                    <ThumbUp sx={{ fontSize: '20px' }} />
+                                    <ThumbUp sx={{fontSize: '20px'}}/>
                                 ) : (
-                                    <ThumbUpOffAlt sx={{ fontSize: '20px' }} />
+                                    <ThumbUpOffAlt sx={{fontSize: '20px'}}/>
                                 )}
                             </IconButton>
                             <Typography variant="subtitle2" color="text.secondary">
                                 {likedBy?.length || 0}
                             </Typography>
                             <IconButton>
-                                <CommentIcon sx={{ fontSize: '20px' }} />
-                            </IconButton >
+                                <CommentIcon sx={{fontSize: '20px'}}/>
+                            </IconButton>
                             <Typography variant="subtitle2" color="text.secondary" sx={{mr: 2}}>
                                 {totalComments}
                             </Typography>

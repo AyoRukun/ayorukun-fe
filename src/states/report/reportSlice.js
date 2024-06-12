@@ -1,9 +1,13 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {
     createReport,
     createReportComment,
+    getReportDetail,
     getReportList,
-    getReportDetail, unlikeReportComment, unlikeReport, likeReportComment, likeReport,
+    likeReport,
+    likeReportComment,
+    unlikeReport,
+    unlikeReportComment,
 } from '../../utils/api.js';
 import {hideLoading, showLoading} from "react-redux-loading-bar";
 
@@ -17,7 +21,7 @@ const initialState = {
 
 export const fetchReports = createAsyncThunk(
     'reports/fetchReports',
-    async (_, { dispatch, rejectWithValue }) => {
+    async (_, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await getReportList();
@@ -32,7 +36,7 @@ export const fetchReports = createAsyncThunk(
 
 export const fetchReportDetail = createAsyncThunk(
     'reports/fetchReportDetail',
-    async (reportId, { dispatch, rejectWithValue }) => {
+    async (reportId, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await getReportDetail(reportId);
@@ -47,7 +51,7 @@ export const fetchReportDetail = createAsyncThunk(
 
 export const addReport = createAsyncThunk(
     'reports/addReport',
-    async (reportData, { dispatch, rejectWithValue }) => {
+    async (reportData, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await createReport(reportData);
@@ -62,11 +66,11 @@ export const addReport = createAsyncThunk(
 
 export const addReportComment = createAsyncThunk(
     'reports/addReportComment',
-    async ({ reportId, commentData }, { dispatch, rejectWithValue }) => {
+    async ({reportId, commentData}, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await createReportComment(reportId, commentData);
-            return { reportId, comment: response.data.comment };
+            return {reportId, comment: response.data.comment};
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
@@ -77,7 +81,7 @@ export const addReportComment = createAsyncThunk(
 
 export const likeReportById = createAsyncThunk(
     'reports/likeReportById',
-    async (reportId, { dispatch, rejectWithValue }) => {
+    async (reportId, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await likeReport(reportId);
@@ -92,7 +96,7 @@ export const likeReportById = createAsyncThunk(
 
 export const unlikeReportById = createAsyncThunk(
     'reports/unlikeReportById',
-    async (reportId, { dispatch, rejectWithValue }) => {
+    async (reportId, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await unlikeReport(reportId);
@@ -107,7 +111,7 @@ export const unlikeReportById = createAsyncThunk(
 
 export const likeReportCommentById = createAsyncThunk(
     'reports/likeReportCommentById',
-    async ({ reportId, commentId }, { dispatch, rejectWithValue }) => {
+    async ({reportId, commentId}, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await likeReportComment(reportId, commentId);
@@ -122,7 +126,7 @@ export const likeReportCommentById = createAsyncThunk(
 
 export const unlikeReportCommentById = createAsyncThunk(
     'reports/unlikeReportCommentById',
-    async ({ reportId, commentId }, { dispatch, rejectWithValue }) => {
+    async ({reportId, commentId}, {dispatch, rejectWithValue}) => {
         dispatch(showLoading());
         try {
             const response = await unlikeReportComment(reportId, commentId);
@@ -141,7 +145,7 @@ const reportSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // fetch Reports
+            // Fetch Reports
             .addCase(fetchReports.pending, (state) => {
                 state.isLoading = true;
             })
@@ -185,7 +189,7 @@ const reportSlice = createSlice({
             })
             .addCase(addReportComment.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const { reportId, comment } = action.payload;
+                const {reportId, comment} = action.payload;
                 state.comments[reportId] = state.comments[reportId] || [];
                 state.comments[reportId].push(comment);
             })
@@ -196,40 +200,40 @@ const reportSlice = createSlice({
 
             // Like Report
             .addCase(likeReportById.fulfilled, (state, action) => {
-                const { reportId, userId } = action.payload.vote;
+                const {reportId, userId} = action.payload.vote;
                 state.reports = state.reports.map(report =>
                     report.id === reportId
-                        ? { ...report, likedBy: [...report.likedBy, userId] }
+                        ? {...report, likedBy: [...report.likedBy, userId]}
                         : report
                 );
             })
 
             // Unlike Report
             .addCase(unlikeReportById.fulfilled, (state, action) => {
-                const { reportId, userId } = action.payload.vote;
+                const {reportId, userId} = action.payload.vote;
                 state.reports = state.reports.map(report =>
                     report.id === reportId
-                        ? { ...report, likedBy: report.likedBy.filter(id => id !== userId) }
+                        ? {...report, likedBy: report.likedBy.filter(id => id !== userId)}
                         : report
                 );
             })
 
             // Like Report Comment
             .addCase(likeReportCommentById.fulfilled, (state, action) => {
-                const { reportId, commentId, userId } = action.payload.vote;
+                const {reportId, commentId, userId} = action.payload.vote;
                 state.comments[reportId] = state.comments[reportId]?.map(comment =>
                     comment.id === commentId
-                        ? { ...comment, likedBy: [...comment.likedBy, userId] }
+                        ? {...comment, likedBy: [...comment.likedBy, userId]}
                         : comment
                 );
             })
 
             // Unlike Report Comment
             .addCase(unlikeReportCommentById.fulfilled, (state, action) => {
-                const { reportId, commentId, userId } = action.payload.vote;
+                const {reportId, commentId, userId} = action.payload.vote;
                 state.comments[reportId] = state.comments[reportId]?.map(comment =>
                     comment.id === commentId
-                        ? { ...comment, likedBy: comment.likedBy.filter(id => id !== userId) }
+                        ? {...comment, likedBy: comment.likedBy.filter(id => id !== userId)}
                         : comment
                 );
             });

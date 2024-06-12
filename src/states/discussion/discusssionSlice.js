@@ -1,11 +1,15 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import {
-  getDiscussionList,
   createDiscussion,
+  createDiscussionComment,
   getDiscussionDetail,
-  createDiscussionComment, unlikeDiscussionComment, likeDiscussionComment, unlikeDiscussion, likeDiscussion,
-} from '../../utils/api.js';
+  getDiscussionList,
+  likeDiscussion,
+  likeDiscussionComment,
+  unlikeDiscussion,
+  unlikeDiscussionComment,
+} from '../../utils/api';
 
 const initialState = {
   discussions: [],

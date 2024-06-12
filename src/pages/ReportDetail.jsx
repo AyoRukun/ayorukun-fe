@@ -1,49 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchReportDetail, addReportComment } from '../states/report/reportSlice'; // Sesuaikan path
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {addReportComment, fetchReportDetail} from '../states/report/reportSlice'; // Sesuaikan path
 import {
     Avatar,
-    ButtonBase,
+    Box,
+    Button,
     Card,
     CardActions,
     CardContent,
     CardHeader,
-    Grid,
-    Stack,
-    Typography,
-    Divider,
-    IconButton,
-    Button,
-    FormLabel,
-    TextField,
-    FormControl,
-    Box,
     Chip,
     Dialog,
     DialogContent,
     DialogTitle,
-    ImageList,
-    ImageListItem
+    Grid,
+    IconButton,
+    Stack,
+    Typography
 } from '@mui/material';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CommentIcon from '@mui/icons-material/Comment';
-import { LoadingButton } from '@mui/lab';
-import { ROUTE_PATHS } from '../routes/index.js';
-import {addDiscussionComment, fetchDiscussionDetail} from "../states/discussion/discusssionSlice.js";
-import AddIcon from "@mui/icons-material/Add.js";
+import {ROUTE_PATHS} from '../routes/index.jsx';
 import {BASE_URL} from "../utils/api.js";
-import postedAt, {formatRelativeTime, formatReportDate} from "../utils/date.js";
-import {ThumbUp, ThumbUpOffAlt} from "@mui/icons-material";
 import CommentList from "../components/CommentList.jsx";
 
 function ReportDetail() {
-    const { id } = useParams();
+    const {id} = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { report, comments, isLoading, error } = useSelector((state) => state.report)
+    const {report, comments, isLoading, error} = useSelector((state) => state.report)
 
 
     const [commentInput, setCommentInput] = useState('');
@@ -74,7 +61,7 @@ function ReportDetail() {
     };
 
     const handleCommentSubmit = (newComment) => {
-        dispatch(dispatch(addReportComment({ reportId: id, commentData: newComment })));
+        dispatch(dispatch(addReportComment({reportId: id, commentData: newComment})));
         dispatch(fetchReportDetail(id));
     };
 
@@ -90,20 +77,20 @@ function ReportDetail() {
 
     return (
         <Grid container justifyContent="center" minHeight="100vh">
-            <Grid item sm={12} md={7} sx={{ px: { xs: 2, md: 0 } }}>
-                <Box sx={{ my: { xs: 1, md: 3 } }}>
+            <Grid item sm={12} md={7} sx={{px: {xs: 2, md: 0}}}>
+                <Box sx={{my: {xs: 1, md: 3}}}>
                     <Button
                         onClick={() => {
-                            navigate(ROUTE_PATHS.REPORT, { replace: true }); // Navigate ke list report
+                            navigate(ROUTE_PATHS.REPORT, {replace: true}); // Navigate ke list report
                         }}
                         variant="text"
                     >
-                        <ArrowBackIcon />
+                        <ArrowBackIcon/>
                     </Button>
 
-                    <Card sx={{ mt: 2 }}>
+                    <Card sx={{mt: 2}}>
                         <CardHeader
-                            avatar={<Avatar aria-label="user-avatar" src={report.user.image_url} />}
+                            avatar={<Avatar aria-label="user-avatar" src={report.user.image_url}/>}
 
                             title={
                                 <Typography variant="h5">{report.title}</Typography>
@@ -118,8 +105,8 @@ function ReportDetail() {
                         <CardContent>
 
                             <Stack direction="row" spacing={1} alignItems="center" mb={2}>
-                                <Chip label={report.region} size="small" />
-                                <Chip label={report.school_name} size="small" />
+                                <Chip label={report.region} size="small"/>
+                                <Chip label={report.school_name} size="small"/>
                             </Stack>
 
                             <Typography variant="body1">
@@ -167,7 +154,7 @@ function ReportDetail() {
                                     <img
                                         src={selectedImage}
                                         alt="Enlarged Report Image"
-                                        style={{ maxWidth: '100%', height: 'auto' }}
+                                        style={{maxWidth: '100%', height: 'auto'}}
                                     />
                                 </DialogContent>
                             </Dialog>
@@ -175,7 +162,8 @@ function ReportDetail() {
 
                         </CardContent>
                         <CardActions>
-                            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ width: '100%' }}>
+                            <Stack direction="row" justifyContent="space-between" alignItems="center"
+                                   sx={{width: '100%'}}>
                                 <Stack direction="row" spacing={1.2}>
                                     <Stack direction="row" alignItems="center">
                                         <Chip label={report.report_as} color="primary" size="small" sx={{ml: 1}}/>
@@ -185,8 +173,8 @@ function ReportDetail() {
                                 <Stack direction="row" spacing={1.2}>
                                     <Stack direction="row" alignItems="center">
                                         <IconButton>
-                                            <CommentIcon sx={{ fontSize: '20px' }} />
-                                        </IconButton >
+                                            <CommentIcon sx={{fontSize: '20px'}}/>
+                                        </IconButton>
                                         <Typography variant="subtitle2" color="text.secondary" sx={{mr: 2}}>
                                             {report.comments?.length}
                                         </Typography>
@@ -197,7 +185,8 @@ function ReportDetail() {
 
                     </Card>
 
-                    <CommentList comments={report.comments } handleNewCommentSubmit={handleCommentSubmit} source={'report'}/>
+                    <CommentList comments={report.comments} handleNewCommentSubmit={handleCommentSubmit}
+                                 source={'report'}/>
 
 
                     {/*<Card sx={{ mt: 2 }}>*/}

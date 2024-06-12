@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {Autocomplete, TextField, CircularProgress, InputLabel, Select} from '@mui/material';
-import { fetchRegions, clearRegions } from '../states/region/regionSlice.js';
-import MenuItem from "@mui/material/MenuItem";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Autocomplete, CircularProgress, TextField} from '@mui/material';
+import {clearRegions, fetchRegions} from '../states/region/regionSlice.js';
 import FormControl from "@mui/material/FormControl";
 
-export default function RegionSelect({ onSelectRegion }) {
+export default function RegionSelect({onSelectRegion}) {
     const dispatch = useDispatch();
-    const { regions, isLoading } = useSelector((state) => state.region);
+    const {regions, isLoading} = useSelector((state) => state.region);
     const [query, setQuery] = useState('');
     const [searchTimeout, setSearchTimeout] = useState(null);
 
@@ -55,7 +54,7 @@ export default function RegionSelect({ onSelectRegion }) {
                             ...params.InputProps,
                             endAdornment: (
                                 <>
-                                    {isLoading ? <CircularProgress color="inherit" size={20} /> : null}
+                                    {isLoading ? <CircularProgress color="inherit" size={20}/> : null}
                                     {params.InputProps.endAdornment}
                                 </>
                             ),

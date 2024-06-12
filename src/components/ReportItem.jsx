@@ -1,19 +1,20 @@
 import {
-    Avatar, ButtonBase,
+    Avatar,
+    ButtonBase,
     Card,
     CardActions,
     CardContent,
     CardHeader,
     Chip,
-    Dialog, DialogContent,
-    DialogTitle, IconButton,
-    ImageList,
-    ImageListItem,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    IconButton,
     Stack,
     Typography
 } from "@mui/material";
 import {Link} from "react-router-dom";
-import {ROUTE_PATHS} from "../routes/index.js";
+import {ROUTE_PATHS} from "../routes/index.jsx";
 import {BASE_URL} from "../utils/api.js";
 import React, {useState} from "react";
 import formatRelativeTime from "../utils/date.js";
@@ -54,16 +55,16 @@ function ReportItem({report}) {
     };
 
     return (
-        <Card key={report.id} sx={{ mt: 2 }}>
+        <Card key={report.id} sx={{mt: 2}}>
             <CardHeader
-                avatar={<Avatar aria-label="user-avatar" src={report.user.image_url} />}
+                avatar={<Avatar aria-label="user-avatar" src={report.user.image_url}/>}
                 title={
                     <ButtonBase
                         component={Link}
                         to={`${ROUTE_PATHS.REPORT}/${report.id}`}
-                        sx={{ width: '100%', justifyContent: 'left' }}
+                        sx={{width: '100%', justifyContent: 'left'}}
                     >
-                        <Typography variant="h5">{report.title || 'Untitled Discussion' }</Typography>
+                        <Typography variant="h5">{report.title || 'Untitled Discussion'}</Typography>
                     </ButtonBase>
                 }
                 subheader={
@@ -75,14 +76,14 @@ function ReportItem({report}) {
 
             <CardContent>
                 <Stack direction="row" spacing={1} alignItems="center" mb={2}>
-                    <Chip label={report.region} size="small" />
-                    <Chip label={report.school_name} size="small" />
+                    <Chip label={report.region} size="small"/>
+                    <Chip label={report.school_name} size="small"/>
                 </Stack>
 
                 <ButtonBase
                     component={Link}
                     to={`${ROUTE_PATHS.REPORT}/${report.id}`}
-                    sx={{ width: '100%', justifyContent: 'left' }}
+                    sx={{width: '100%', justifyContent: 'left'}}
                 >
                     <Typography
                         variant="body2"
@@ -140,14 +141,14 @@ function ReportItem({report}) {
                         <img
                             src={selectedImage}
                             alt="Enlarged Report Image"
-                            style={{ maxWidth: '100%', height: 'auto' }}
+                            style={{maxWidth: '100%', height: 'auto'}}
                         />
                     </DialogContent>
                 </Dialog>
             </CardContent>
 
             <CardActions>
-                <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ width: '100%' }}>
+                <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{width: '100%'}}>
                     <Stack direction="row" spacing={1.2}>
                         <Stack direction="row" alignItems="center">
                             <Chip label={report.report_as} color="primary" size="small" sx={{ml: 1}}/>
@@ -156,19 +157,19 @@ function ReportItem({report}) {
 
                     <Stack direction="row" spacing={1.2}>
                         <Stack direction="row" alignItems="center">
-                            <IconButton onClick={handleLikeClick} >
+                            <IconButton onClick={handleLikeClick}>
                                 {isLiked ? (
-                                    <ThumbUp sx={{ fontSize: '20px'}} />
+                                    <ThumbUp sx={{fontSize: '20px'}}/>
                                 ) : (
-                                    <ThumbUpOffAlt sx={{ fontSize: '20px' }} />
+                                    <ThumbUpOffAlt sx={{fontSize: '20px'}}/>
                                 )}
                             </IconButton>
                             <Typography variant="subtitle2" color="text.secondary">
                                 {report.likedBy?.length || 0}
                             </Typography>
                             <IconButton>
-                                <CommentIcon sx={{ fontSize: '20px' }} />
-                            </IconButton >
+                                <CommentIcon sx={{fontSize: '20px'}}/>
+                            </IconButton>
                             <Typography variant="subtitle2" color="text.secondary" sx={{mr: 2}}>
                                 {report.totalComments}
                             </Typography>

@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { searchRegion } from '../../utils/api.js';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { searchRegion } from '../../utils/api';
 
 const initialState = {
   regions: [],

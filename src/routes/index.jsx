@@ -1,6 +1,4 @@
-import React from 'react';
-
-const ROUTE_PATHS = {
+export const ROUTE_PATHS = {
   HOME: '/',
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
@@ -11,4 +9,4 @@ const ROUTE_PATHS = {
   ABOUT: '/about',
 };
 
-export { ROUTE_PATHS };
+export default { ROUTE_PATHS };

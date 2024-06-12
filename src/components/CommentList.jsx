@@ -1,11 +1,8 @@
-import {Avatar, Button, Card, CardActions, CardContent, CardHeader, IconButton, Stack, Typography} from "@mui/material";
-import formatRelativeTime, {sortByCreatedAt} from "../utils/date.js";
-import CommentIcon from "@mui/icons-material/Comment.js";
+import {Button, Card, CardContent, CardHeader, Stack, Typography} from "@mui/material";
+import {sortByCreatedAt} from "../utils/date.js";
 import React, {useState} from "react";
 import CommentItem from "./CommentItem.jsx";
-import DiscussionDialog from "./DiscussionDialog.jsx";
 import CommentDialog from "./CommentDialog.jsx";
-import {AddCircle} from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 
 
@@ -20,17 +17,17 @@ function CommentList({comments, handleNewCommentSubmit, source}) {
         setOpenDialog(false);
     };
 
-    return(
-        <Card sx={{ mt: 2 }}>
+    return (
+        <Card sx={{mt: 2}}>
             <CommentDialog
                 isOpen={openDialog}
                 onClose={handleCloseDialog}
                 onSubmit={handleNewCommentSubmit}
             />
             <CardHeader
-                sx={{ pb: 0 }}
+                sx={{pb: 0}}
                 title={
-                    <Typography variant="h6" sx={{  mb: 0.5 }}>
+                    <Typography variant="h6" sx={{mb: 0.5}}>
                         {`Komentar (${comments?.length || 0})`}
                     </Typography>
 
@@ -40,7 +37,7 @@ function CommentList({comments, handleNewCommentSubmit, source}) {
                         variant="contained"
                         onClick={handleOpenDialog}
                     >
-                        <AddIcon />
+                        <AddIcon/>
                     </Button>
                 }
             />
