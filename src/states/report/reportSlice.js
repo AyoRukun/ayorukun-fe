@@ -221,7 +221,7 @@ const reportSlice = createSlice({
             // Like Report Comment
             .addCase(likeReportCommentById.fulfilled, (state, action) => {
                 const {reportId, commentId, userId} = action.payload.vote;
-                state.comments[reportId] = state.comments[reportId]?.map(comment =>
+                state.comments[reportId] = state.comments[reportId].map(comment =>
                     comment.id === commentId
                         ? {...comment, likedBy: [...comment.likedBy, userId]}
                         : comment

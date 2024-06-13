@@ -1,9 +1,9 @@
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
 
-function ImageDialog({ is }) {
+function ImageDialog({ isOpen, onClose, selectedImage }) {
   return (
-    <Dialog open={openDialog} onClose={handleCloseDialog}>
+    <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>Report Image</DialogTitle>
       <DialogContent>
         <img

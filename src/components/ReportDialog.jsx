@@ -21,7 +21,7 @@ function DeleteIcon() {
   return null;
 }
 
-export default function ReportDialog({ open, onClose, onSubmit }) {
+export default function ReportDialog({ isOpen, onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -61,7 +61,7 @@ export default function ReportDialog({ open, onClose, onSubmit }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Create Report</DialogTitle>
       <DialogContent>
         <TextField

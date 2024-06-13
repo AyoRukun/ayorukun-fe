@@ -6,9 +6,6 @@ import {
     CardContent,
     CardHeader,
     Chip,
-    Dialog,
-    DialogContent,
-    DialogTitle,
     IconButton,
     Stack,
     Typography
@@ -23,12 +20,13 @@ import {ThumbUp, ThumbUpOffAlt} from "@mui/icons-material";
 import Box from "@mui/material/Box";
 import {useDispatch, useSelector} from "react-redux";
 import {likeReportById, unlikeReportById} from "../states/report/reportSlice.js";
+import ImageDialog from "./ImageDialog.jsx";
 
 
 function ReportItem({report}) {
     const dispatch = useDispatch();
-    const userId = useSelector(state => state.auth.user?.id);
-    const isLiked = report.likedBy?.includes(userId);
+    const userId = useSelector(state => state.auth.user.id);
+    const isLiked = report.likedBy.includes(userId);
 
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
@@ -43,7 +41,7 @@ function ReportItem({report}) {
 
     const handleImageClick = (imageUrl) => {
         setSelectedImage(imageUrl);
-        setOpenDialog(true);
+        handleOpenDialog();
     };
 
     const handleCloseDialog = () => {
@@ -56,49 +54,40 @@ function ReportItem({report}) {
 
     return (
         <Card key={report.id} sx={{mt: 2}}>
-            <CardHeader
-                avatar={<Avatar aria-label="user-avatar" src={report.user.image_url}/>}
-                title={
-                    <ButtonBase
-                        component={Link}
-                        to={`${ROUTE_PATHS.REPORT}/${report.id}`}
-                        sx={{width: '100%', justifyContent: 'left'}}
-                    >
-                        <Typography variant="h5">{report.title || 'Untitled Discussion'}</Typography>
-                    </ButtonBase>
-                }
-                subheader={
-                    <Typography variant="caption" color="text.secondary">
-                        {`Oleh ${report.user.username} - ${formatRelativeTime(report.createdAt)}`}
-                    </Typography>
-                }
-            />
+            <ButtonBase
+                component={Link}
+                to={`${ROUTE_PATHS.REPORT}/${report.id}`}
+                sx={{width: '100%', justifyContent: 'left'}}
+            >
+                <CardHeader
+                    avatar={<Avatar aria-label="user-avatar" src={report.user.image_url}/>}
+                    title={<Typography variant="h5">{report.title || 'Untitled Discussion'}</Typography>}
+                    subheader={
+                        <Typography variant="caption" color="text.secondary">
+                            {`Oleh ${report.user.username} - ${formatRelativeTime(report.createdAt)}`}
+                        </Typography>
+                    }
+                />
+            </ButtonBase>
 
             <CardContent>
                 <Stack direction="row" spacing={1} alignItems="center" mb={2}>
                     <Chip label={report.region} size="small"/>
                     <Chip label={report.school_name} size="small"/>
                 </Stack>
-
-                <ButtonBase
-                    component={Link}
-                    to={`${ROUTE_PATHS.REPORT}/${report.id}`}
-                    sx={{width: '100%', justifyContent: 'left'}}
+                <Typography
+                    variant="body2"
+                    sx={{
+                        WebkitLineClamp: 4,
+                        lineClamp: 4,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitBoxOrient: 'vertical',
+                    }}
                 >
-                    <Typography
-                        variant="body2"
-                        sx={{
-                            WebkitLineClamp: 4,
-                            lineClamp: 4,
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            display: '-webkit-box',
-                            WebkitBoxOrient: 'vertical',
-                        }}
-                    >
-                        {report.content}
-                    </Typography>
-                </ButtonBase>
+                    {report.content}
+                </Typography>
 
                 {report.report_files?.length > 0 && (
                     <Box
@@ -116,7 +105,7 @@ function ReportItem({report}) {
                                 onClick={() => handleImageClick(`${BASE_URL}/${file.path}`)}
                                 sx={{
                                     maxWidth: "100px",
-                                    maxHeight: "100px", // Limit
+                                    maxHeight: "100px",
                                     overflow: "hidden",
                                     cursor: "pointer",
                                 }}
@@ -135,16 +124,12 @@ function ReportItem({report}) {
                     </Box>
                 )}
 
-                <Dialog open={openDialog} onClose={handleCloseDialog}>
-                    <DialogTitle>Report Image</DialogTitle>
-                    <DialogContent>
-                        <img
-                            src={selectedImage}
-                            alt="Enlarged Report Image"
-                            style={{maxWidth: '100%', height: 'auto'}}
-                        />
-                    </DialogContent>
-                </Dialog>
+                <ImageDialog
+                    isOpen={openDialog}
+                    onClose={handleCloseDialog}
+                    selectedImage={selectedImage}>
+                </ImageDialog>
+
             </CardContent>
 
             <CardActions>
