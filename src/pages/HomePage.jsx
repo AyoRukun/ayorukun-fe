@@ -60,7 +60,7 @@ function HomePage() {
                     
                 </Box>
             </Box>
-            <Box sx={{backgroundColor: 'white'}}>
+            <Box sx={{backgroundColor: 'white', mt: 10}}>
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
                     <Box>
                         <img src="/img/bullying.jpg" alt="" height={700}/>
@@ -79,21 +79,21 @@ function HomePage() {
                     </Box>
                 </Box>
                 <Box sx={{ mt: 10, textAlign: 'center'}}>
-                    <Typography variant="h3" component="h1">Macam-macam Bullying</Typography>
-                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', placeItems: 'center'}}>
+                    <Typography variant="h3" component="h1" sx={{ mb: 5 }}>Macam-macam Bullying</Typography>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', placeItems: 'center', mb: 5}}>
                         <img src="/img/physicalbullying.png" alt="" height={300}/>
                         <img src="/img/verbalbullying.png" alt="" height={300}/>
                         <img src="/img/socialbullying.png" alt="" height={300}/>
                         <img src="/img/cyberbullying.png" alt="" height={300}/>
                     </Box>
                 </Box>
-                <Box sx={{ textAlign: 'center' }}>
-                    <Typography variant="h3" component="h1">Upaya pencegahan Bullying</Typography>
+                <Box sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                    <Typography variant="h3" component="h1" sx={{ mb: 5 }}>Upaya pencegahan Bullying</Typography>
                     <Box sx={{display: 'flex' }}>
-                        <Card sx={{ maxWidth: 345 }}>
+                        <Card sx={{ maxWidth: 288 }}>
                             <CardMedia
-                                sx={{ height: 140 }}
-                                image="/static/images/cards/contemplative-reptile.jpg"
+                                sx={{ height: 200 }}
+                                image="/img/upayaanak.jpg"
                                 title="green iguana"
                             />
                             <CardContent>
@@ -105,10 +105,10 @@ function HomePage() {
                                 </Typography>
                             </CardContent>
                         </Card>
-                        <Card sx={{ maxWidth: 345 }}>
+                        <Card sx={{ maxWidth: 288 }}>
                             <CardMedia
-                                sx={{ height: 140 }}
-                                image="/static/images/cards/contemplative-reptile.jpg"
+                                sx={{ height: 200 }}
+                                image="/img/upayakeluarga.jpg"
                                 title="green iguana"
                             />
                             <CardContent>
@@ -120,10 +120,10 @@ function HomePage() {
                                 </Typography>
                             </CardContent>
                         </Card>
-                        <Card sx={{ maxWidth: 345 }}>
+                        <Card sx={{ maxWidth: 288 }}>
                             <CardMedia
-                                sx={{ height: 140 }}
-                                image="/static/images/cards/contemplative-reptile.jpg"
+                                sx={{ height: 200 }}
+                                image="/img/upayasatpendik.jpg"
                                 title="green iguana"
                             />
                             <CardContent>
@@ -136,10 +136,10 @@ function HomePage() {
                                 </Typography>
                             </CardContent>
                         </Card>
-                        <Card sx={{ maxWidth: 345 }}>
+                        <Card sx={{ maxWidth: 288 }}>
                             <CardMedia
-                                sx={{ height: 140 }}
-                                image="/static/images/cards/contemplative-reptile.jpg"
+                                sx={{ height: 200 }}
+                                image="/img/upayamasyarakat.png"
                                 title="green iguana"
                             />
                             <CardContent>
@@ -153,10 +153,10 @@ function HomePage() {
                                 </Typography>
                             </CardContent>
                         </Card>
-                        <Card sx={{ maxWidth: 345 }}>
+                        <Card sx={{ maxWidth: 288 }}>
                             <CardMedia
-                                sx={{ height: 140 }}
-                                image="/static/images/cards/contemplative-reptile.jpg"
+                                sx={{ height: 200 }}
+                                image="/img/upayapemerintah.jpg"
                                 title="green iguana"
                             />
                             <CardContent>
