@@ -8,7 +8,6 @@ function ImageDialog({ isOpen, onClose, selectedImage }) {
       <DialogContent>
         <img
           src={selectedImage}
-          alt="Enlarged Report Image"
           style={{ maxWidth: '100%', height: 'auto' }}
         />
       </DialogContent>

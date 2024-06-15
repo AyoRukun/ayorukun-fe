@@ -22,7 +22,7 @@ function DiscussionItem({discussion}) {
     const dispatch = useDispatch();
     const {id, title, content, user, totalComments, createdAt, likedBy} = discussion;
     const userId = useSelector(state => state.auth.user?.id);
-    const isLiked = likedBy?.includes(userId);
+    const isLiked = likedBy.includes(userId);
 
     const handleLikeClick = () => {
         if (isLiked) {

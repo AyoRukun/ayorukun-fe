@@ -16,10 +16,16 @@ export default [
     files: ["**/*.js", "**/*.jsx"],
     languageOptions: {
       globals: {...globals.browser, ...globals.node},
-    },
-    rules: {
-
     }
   },
   ...compat.extends("airbnb"),
+  {
+    rules: {
+      'import/no-named-as-default': 'off',
+      'import/no-named-as-default-member': 'off',
+      'no-param-reassign': 'off',
+      'import/extensions': 'off'
+
+    }
+  }
 ];

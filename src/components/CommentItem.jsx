@@ -10,7 +10,7 @@ import {likeReportCommentById, unlikeReportCommentById} from "../states/report/r
 function CommentItem({comment, source}) {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.auth.user?.id);
-    const isLiked = comment?.likedBy?.includes(userId);
+    const isLiked = comment.likedBy.includes(userId);
 
     const handleLikeClick = () => {
         if (isLiked) {

@@ -135,7 +135,7 @@ export default function ReportDialog({ isOpen, onClose, onSubmit }) {
 
         <List>
           {formData.report_files.map((file, index) => (
-            <ListItem key={index}>
+            <ListItem key={file.name}>
               <ListItemText primary={file.name} />
               <IconButton edge="end" onClick={() => handleRemoveFile(index)}>
                 <DeleteIcon />
