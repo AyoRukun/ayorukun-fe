@@ -75,7 +75,7 @@ function AppAppBar() {
                         }}
                     >
                         {/*<Sitemark />*/}
-                        <Box sx={{ 
+                        <Box sx={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
