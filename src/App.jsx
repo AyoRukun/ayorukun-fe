@@ -34,8 +34,6 @@ function App() {
             </Box>
             <AppFooter />
         </Box>
-      </Box>
-    </Box>
   );
 }
 

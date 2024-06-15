@@ -7,7 +7,7 @@ import Card from "@mui/material/Card";
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import {useNavigate} from "react-router-dom";
-import {ROUTE_PATHS} from "../routes/index.js";
+import {ROUTE_PATHS} from "../routes/index.jsx";
 
 function HomePage() {
     const { user, isAuthenticated } = useSelector(state => state.auth);

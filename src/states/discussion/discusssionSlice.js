@@ -190,8 +190,7 @@ const discussionSlice = createSlice({
     // Like Discussion
       .addCase(likeDiscussionById.fulfilled, (state, action) => {
         const { id, userId } = action.payload;
-        state.discussions = state.discussions.map((discussion)
-            => (discussion.id === id
+        state.discussions = state.discussions.map((discussion) => (discussion.id === id
           ? { ...discussion, likedBy: [...discussion.likedBy, userId] }
           : discussion));
       })
@@ -199,8 +198,7 @@ const discussionSlice = createSlice({
     // Unlike Discussion
       .addCase(unlikeDiscussionById.fulfilled, (state, action) => {
         const { id, userId } = action.payload;
-        state.discussions = state.discussions.map((discussion)
-            => (discussion.id === id
+        state.discussions = state.discussions.map((discussion) => (discussion.id === id
           ? { ...discussion, likedBy: discussion.likedBy.filter((likedId) => likedId !== userId) }
           : discussion));
       })
@@ -208,8 +206,7 @@ const discussionSlice = createSlice({
     // Like Comment
       .addCase(likeCommentById.fulfilled, (state, action) => {
         const { id, userId, discussionId } = action.payload;
-        state.comments[discussionId] = state.comments[discussionId].map((comment)
-            => (comment.id === id
+        state.comments[discussionId] = state.comments[discussionId].map((comment) => (comment.id === id
           ? { ...comment, likedBy: [...comment.likedBy, userId] }
           : comment));
       })
@@ -217,8 +214,7 @@ const discussionSlice = createSlice({
     // Unlike Comment
       .addCase(unlikeCommentById.fulfilled, (state, action) => {
         const { id, userId, discussionId } = action.payload;
-        state.comments[discussionId] = state.comments[discussionId].map((comment)
-            => (comment.id === id
+        state.comments[discussionId] = state.comments[discussionId].map((comment) => (comment.id === id
           ? { ...comment, likedBy: comment.likedBy.filter((likedId) => likedId !== userId) }
           : comment));
       });

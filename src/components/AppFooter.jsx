@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 import {useNavigate} from "react-router-dom";
-import {ROUTE_PATHS} from "../routes/index.js";
+import {ROUTE_PATHS} from "../routes/index.jsx";
 
 function AppFooter(){
 
