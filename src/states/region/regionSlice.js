@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { searchRegion } from '../../utils/api';
+import {startLoading, stopLoading} from "../loading/loadingSlice.js";
 
 const initialState = {
   regions: [],
@@ -10,12 +11,16 @@ const initialState = {
 
 export const fetchRegions = createAsyncThunk(
   'regions/fetchRegions',
-  async (query, { rejectWithValue }) => {
+  async (query, { dispatch, rejectWithValue }) => {
+    dispatch(startLoading());
     try {
       const response = await searchRegion(query);
       return response.data.results;
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+      dispatch(stopLoading());
+
     }
   },
 );

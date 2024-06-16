@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import {Route, Routes} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
-import { checkAuth } from './states/auth/authSlice';
+import {checkAuth} from './states/auth/authSlice';
 import AppAppBar from './components/AppAppBar.jsx';
 import routes from './routes/routes.jsx';
 import AppFooter from "./components/AppFooter.jsx";
+import Loading from "./components/Loading.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Loading/>
             <AppAppBar/>
             <Box component="main" justifyContent="center" alignItems="center" minHeight="100vh" minWidth="100%">
                 <Toolbar />

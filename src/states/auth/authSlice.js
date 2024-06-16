@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { checkToken, loginUser, registerUser } from '../../utils/api';
+import {startLoading, stopLoading} from "../loading/loadingSlice.js";
 
 const initialState = {
   user: null,
@@ -11,38 +12,49 @@ const initialState = {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { dispatch, rejectWithValue }) => {
+    dispatch(startLoading());
     try {
       const response = await registerUser(email, password);
       return response.data.user;
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+      dispatch(stopLoading());
     }
   },
 );
 
 export const login = createAsyncThunk(
   'auth/login',
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { dispatch, rejectWithValue }) => {
+    dispatch(startLoading());
+
     try {
       const response = await loginUser(email, password);
       localStorage.setItem('token', response.data.accessToken);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+      dispatch(stopLoading());
     }
   },
 );
 
 export const checkAuth = createAsyncThunk(
   'auth/checkStatus',
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
+    dispatch(startLoading());
+
     try {
       const response = await checkToken();
       return response.data.user;
     } catch (error) {
       localStorage.removeItem('token');
       return rejectWithValue(error.message);
+    } finally {
+      dispatch(stopLoading());
     }
   },
 );

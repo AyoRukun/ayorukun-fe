@@ -1,14 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { hideLoading, showLoading } from 'react-redux-loading-bar';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {
-  createDiscussion,
-  createDiscussionComment,
-  getDiscussionDetail,
-  getDiscussionList,
-  likeDiscussion,
-  likeDiscussionComment,
-  unlikeDiscussion,
-  unlikeDiscussionComment,
+    createDiscussion,
+    createDiscussionComment,
+    getDiscussionDetail,
+    getDiscussionList,
+    likeDiscussion,
+    likeDiscussionComment,
+    unlikeDiscussion,
+    unlikeDiscussionComment,
 } from '../../utils/api';
 import {startLoading, stopLoading} from "../loading/loadingSlice.js";
 
@@ -23,29 +22,29 @@ const initialState = {
 export const fetchDiscussions = createAsyncThunk(
   'discussions/fetchDiscussions',
   async (_, { dispatch, rejectWithValue }) => {
-    dispatch(showLoading());
+      dispatch(startLoading());
     try {
       const response = await getDiscussionList();
       return response.data.discussions;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-      dispatch(hideLoading());
+        dispatch(stopLoading());
     }
   },
 );
 
 export const fetchDiscussionDetail = createAsyncThunk(
   'discussions/fetchDiscussionDetail',
-  async (discussionId, { dispatch, rejectWithValue }) => {
-    dispatch(showLoading());
+    async ({discussionId}, {dispatch, rejectWithValue}) => {
+        dispatch(startLoading());
     try {
       const response = await getDiscussionDetail(discussionId);
       return response.data.report;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-      dispatch(hideLoading());
+        dispatch(stopLoading());
     }
   },
 );
@@ -53,14 +52,14 @@ export const fetchDiscussionDetail = createAsyncThunk(
 export const addDiscussion = createAsyncThunk(
   'discussions/addDiscussion',
   async (discussionData, { dispatch, rejectWithValue }) => {
-    dispatch(showLoading());
+      dispatch(startLoading());
     try {
       const response = await createDiscussion(discussionData);
       return response.data.discussion;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-      dispatch(hideLoading());
+        dispatch(stopLoading());
     }
   },
 );
@@ -68,62 +67,74 @@ export const addDiscussion = createAsyncThunk(
 export const addDiscussionComment = createAsyncThunk(
   'discussions/addDiscussionComment',
   async ({ discussionId, commentData }, { dispatch, rejectWithValue }) => {
-    dispatch(showLoading());
+      dispatch(startLoading());
     try {
       const response = await createDiscussionComment(discussionId, commentData);
       return { discussionId, comment: response.data.comment };
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-      dispatch(hideLoading());
+        dispatch(stopLoading());
     }
   },
 );
 
 export const likeDiscussionById = createAsyncThunk(
   'discussions/likeDiscussionById',
-  async (discussionId, { rejectWithValue }) => {
-    try {
+  async (discussionId, { dispatch, rejectWithValue }) => {
+      dispatch(startLoading());
+      try {
       const response = await likeDiscussion(discussionId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
-    }
+    } finally {
+          dispatch(stopLoading());
+      }
   },
 );
 
 export const unlikeDiscussionById = createAsyncThunk(
   'discussions/unlikeDiscussionById',
-  async (discussionId, { rejectWithValue }) => {
-    try {
+  async (discussionId, { dispatch, rejectWithValue }) => {
+      dispatch(startLoading());
+      try {
       const response = await unlikeDiscussion(discussionId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+        dispatch(stopLoading());
     }
   },
 );
 
 export const likeCommentById = createAsyncThunk(
   'discussions/likeCommentById',
-  async ({ discussionId, commentId, userId }, { rejectWithValue }) => {
-    try {
+  async ({ discussionId, commentId, userId }, { dispatch, rejectWithValue }) => {
+      dispatch(startLoading());
+      try {
       const response = await likeDiscussionComment(discussionId, commentId, userId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+        dispatch(stopLoading());
     }
   },
 );
 
 export const unlikeCommentById = createAsyncThunk(
   'discussions/unlikeCommentById',
-  async ({ discussionId, commentId }, { rejectWithValue }) => {
-    try {
+  async ({ discussionId, commentId }, { dispatch, rejectWithValue }) => {
+      dispatch(startLoading());
+      try {
       const response = await unlikeDiscussionComment(discussionId, commentId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+        dispatch(stopLoading());
     }
   },
 );

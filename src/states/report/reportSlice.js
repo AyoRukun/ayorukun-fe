@@ -9,7 +9,7 @@ import {
   unlikeReport,
   unlikeReportComment,
 } from '../../utils/api.js';
-import {hideLoading, showLoading} from "react-redux-loading-bar";
+import {startLoading, stopLoading} from "../loading/loadingSlice.js";
 
 const initialState = {
   reports: [],
@@ -22,14 +22,14 @@ const initialState = {
 export const fetchReports = createAsyncThunk(
     'reports/fetchReports',
     async (_, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await getReportList();
             return response.data.reports;
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );
@@ -37,14 +37,14 @@ export const fetchReports = createAsyncThunk(
 export const fetchReportDetail = createAsyncThunk(
     'reports/fetchReportDetail',
     async (reportId, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await getReportDetail(reportId);
             return response.data.report;
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );
@@ -52,14 +52,14 @@ export const fetchReportDetail = createAsyncThunk(
 export const addReport = createAsyncThunk(
     'reports/addReport',
     async (reportData, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await createReport(reportData);
             return response.data.report;
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );
@@ -67,14 +67,14 @@ export const addReport = createAsyncThunk(
 export const addReportComment = createAsyncThunk(
     'reports/addReportComment',
     async ({reportId, commentData}, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await createReportComment(reportId, commentData);
             return {reportId, comment: response.data.comment};
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );
@@ -82,14 +82,14 @@ export const addReportComment = createAsyncThunk(
 export const likeReportById = createAsyncThunk(
     'reports/likeReportById',
     async (reportId, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await likeReport(reportId);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );
@@ -97,14 +97,14 @@ export const likeReportById = createAsyncThunk(
 export const unlikeReportById = createAsyncThunk(
     'reports/unlikeReportById',
     async (reportId, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await unlikeReport(reportId);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );
@@ -112,14 +112,14 @@ export const unlikeReportById = createAsyncThunk(
 export const likeReportCommentById = createAsyncThunk(
     'reports/likeReportCommentById',
     async ({reportId, commentId}, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await likeReportComment(reportId, commentId);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );
@@ -127,14 +127,14 @@ export const likeReportCommentById = createAsyncThunk(
 export const unlikeReportCommentById = createAsyncThunk(
     'reports/unlikeReportCommentById',
     async ({reportId, commentId}, {dispatch, rejectWithValue}) => {
-        dispatch(showLoading());
+        dispatch(startLoading());
         try {
             const response = await unlikeReportComment(reportId, commentId);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
         } finally {
-            dispatch(hideLoading());
+            dispatch(stopLoading());
         }
     }
 );

@@ -28,7 +28,7 @@ function DiscussionDetail() {
   const { discussion, isLoading, error } = useSelector((state) => state.discussion);
 
   useEffect(() => {
-    dispatch(fetchDiscussionDetail(id));
+    dispatch(fetchDiscussionDetail({discussionId: id}));
   }, [dispatch, id]);
 
   const handleNewCommentSubmit = (newComment) => {
@@ -36,18 +36,6 @@ function DiscussionDetail() {
     dispatch(fetchDiscussionDetail(id));
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return (
-      <div>
-        Error:
-        {error}
-      </div>
-    );
-  }
 
   if (!discussion) {
     return <div>Discussion not found</div>;

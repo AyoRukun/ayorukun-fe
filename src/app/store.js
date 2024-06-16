@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { loadingBarReducer } from 'react-redux-loading-bar';
+import {configureStore} from '@reduxjs/toolkit';
 import authReducer from '../states/auth/authSlice';
 import discussionReducer from '../states/discussion/discusssionSlice';
-import regionReducer from '../states/region/regionSlice.js';
-import reportReducer from '../states/report/reportSlice.js';
+import regionReducer from '../states/region/regionSlice';
+import reportReducer from '../states/report/reportSlice';
+import loadingReducer from '../states/loading/loadingSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,7 +11,7 @@ const store = configureStore({
     discussion: discussionReducer,
     region: regionReducer,
     report: reportReducer,
-    loadingBar: loadingBarReducer,
+    loading: loadingReducer,
   },
 });
 
