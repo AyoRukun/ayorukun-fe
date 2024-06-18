@@ -4,15 +4,21 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Add } from '@mui/icons-material';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import ReportDialog from './ReportDialog.jsx';
 import { addReport } from '../states/report/reportSlice.js';
 
 function ReportHero() {
   const dispatch = useDispatch();
   const [openDialog, setOpenDialog] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const handleOpenDialog = () => {
+    if (!isAuthenticated) {
+      toast.warn('Silakan login untuk membuat laporan baru.');
+      return;
+    }
     setOpenDialog(true);
   };
 
@@ -20,7 +26,7 @@ function ReportHero() {
     setOpenDialog(false);
   };
 
-  const handleSubmitDialog = (formData) => {
+  const handleAddReport = (formData) => {
     dispatch(addReport(formData));
   };
 
@@ -34,12 +40,14 @@ function ReportHero() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        background: '#fadeff',
+        mb: -10,
       }}
     >
       <ReportDialog
         isOpen={openDialog}
         onClose={handleCloseDialog}
-        onSubmit={handleSubmitDialog}
+        onSubmit={handleAddReport}
       />
       <Container maxWidth="md">
         <Box sx={{ textAlign: 'center', color: 'black' }}>
@@ -47,7 +55,8 @@ function ReportHero() {
             Pelaporan
           </Typography>
           <Typography variant="body1" opacity={0.8} paragraph>
-            Bergabunglah dalam diskusi, berbagi pengetahuan, dan dapatkan wawasan baru.
+            Platform pelaporan anonim untuk melaporkan kejadian
+            bullying secara mudah, aman, dan tanpa rasa takut.
           </Typography>
           <Button
             variant="contained"
@@ -55,7 +64,7 @@ function ReportHero() {
             onClick={handleOpenDialog}
             sx={{ mt: 2 }}
           >
-            Buat Diskusi Baru
+            Buat Laporan Baru
           </Button>
         </Box>
       </Container>

@@ -1,15 +1,16 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
-    createDiscussion,
-    createDiscussionComment,
-    getDiscussionDetail,
-    getDiscussionList,
-    likeDiscussion,
-    likeDiscussionComment,
-    unlikeDiscussion,
-    unlikeDiscussionComment,
+  createDiscussion,
+  createDiscussionComment,
+  getDiscussionDetail,
+  getDiscussionList,
+  likeDiscussion,
+  likeDiscussionComment,
+  unlikeDiscussion,
+  unlikeDiscussionComment,
 } from '../../utils/api';
-import {startLoading, stopLoading} from "../loading/loadingSlice.js";
+import { startLoading, stopLoading } from '../loading/loadingSlice.js';
+import { toastError, toastSuccess } from '../../utils/toast.js';
 
 const initialState = {
   discussions: [],
@@ -22,29 +23,29 @@ const initialState = {
 export const fetchDiscussions = createAsyncThunk(
   'discussions/fetchDiscussions',
   async (_, { dispatch, rejectWithValue }) => {
-      dispatch(startLoading());
+    dispatch(startLoading());
     try {
       const response = await getDiscussionList();
       return response.data.discussions;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-        dispatch(stopLoading());
+      dispatch(stopLoading());
     }
   },
 );
 
 export const fetchDiscussionDetail = createAsyncThunk(
   'discussions/fetchDiscussionDetail',
-    async ({discussionId}, {dispatch, rejectWithValue}) => {
-        dispatch(startLoading());
+  async ({ discussionId }, { dispatch, rejectWithValue }) => {
+    dispatch(startLoading());
     try {
       const response = await getDiscussionDetail(discussionId);
       return response.data.report;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-        dispatch(stopLoading());
+      dispatch(stopLoading());
     }
   },
 );
@@ -52,14 +53,14 @@ export const fetchDiscussionDetail = createAsyncThunk(
 export const addDiscussion = createAsyncThunk(
   'discussions/addDiscussion',
   async (discussionData, { dispatch, rejectWithValue }) => {
-      dispatch(startLoading());
+    dispatch(startLoading());
     try {
       const response = await createDiscussion(discussionData);
       return response.data.discussion;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-        dispatch(stopLoading());
+      dispatch(stopLoading());
     }
   },
 );
@@ -67,14 +68,14 @@ export const addDiscussion = createAsyncThunk(
 export const addDiscussionComment = createAsyncThunk(
   'discussions/addDiscussionComment',
   async ({ discussionId, commentData }, { dispatch, rejectWithValue }) => {
-      dispatch(startLoading());
+    dispatch(startLoading());
     try {
       const response = await createDiscussionComment(discussionId, commentData);
       return { discussionId, comment: response.data.comment };
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-        dispatch(stopLoading());
+      dispatch(stopLoading());
     }
   },
 );
@@ -82,59 +83,59 @@ export const addDiscussionComment = createAsyncThunk(
 export const likeDiscussionById = createAsyncThunk(
   'discussions/likeDiscussionById',
   async (discussionId, { dispatch, rejectWithValue }) => {
-      dispatch(startLoading());
-      try {
+    dispatch(startLoading());
+    try {
       const response = await likeDiscussion(discussionId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-          dispatch(stopLoading());
-      }
+      dispatch(stopLoading());
+    }
   },
 );
 
 export const unlikeDiscussionById = createAsyncThunk(
   'discussions/unlikeDiscussionById',
   async (discussionId, { dispatch, rejectWithValue }) => {
-      dispatch(startLoading());
-      try {
+    dispatch(startLoading());
+    try {
       const response = await unlikeDiscussion(discussionId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-        dispatch(stopLoading());
+      dispatch(stopLoading());
     }
   },
 );
 
-export const likeCommentById = createAsyncThunk(
+export const likeDiscussionCommentById = createAsyncThunk(
   'discussions/likeCommentById',
   async ({ discussionId, commentId, userId }, { dispatch, rejectWithValue }) => {
-      dispatch(startLoading());
-      try {
+    dispatch(startLoading());
+    try {
       const response = await likeDiscussionComment(discussionId, commentId, userId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-        dispatch(stopLoading());
+      dispatch(stopLoading());
     }
   },
 );
 
-export const unlikeCommentById = createAsyncThunk(
+export const unlikeDiscussionCommentById = createAsyncThunk(
   'discussions/unlikeCommentById',
   async ({ discussionId, commentId }, { dispatch, rejectWithValue }) => {
-      dispatch(startLoading());
-      try {
+    dispatch(startLoading());
+    try {
       const response = await unlikeDiscussionComment(discussionId, commentId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     } finally {
-        dispatch(stopLoading());
+      dispatch(stopLoading());
     }
   },
 );
@@ -177,10 +178,12 @@ const discussionSlice = createSlice({
       })
       .addCase(addDiscussion.fulfilled, (state) => {
         state.isLoading = false;
+        toastSuccess('Diskusi berhasil ditambahkan!');
       })
       .addCase(addDiscussion.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toastError('Diskusi gagal ditambahkan!');
       })
 
     // Add Discussion Comment
@@ -192,10 +195,12 @@ const discussionSlice = createSlice({
         const { discussionId, comment } = action.payload;
         state.comments[discussionId] = state.comments[discussionId] || [];
         state.comments[discussionId].push(comment);
+        toastSuccess('Komentar berhasil ditambahkan!');
       })
       .addCase(addDiscussionComment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toastError('Komentar gagal ditambahkan!');
       })
 
     // Like Discussion
@@ -215,7 +220,7 @@ const discussionSlice = createSlice({
       })
 
     // Like Comment
-      .addCase(likeCommentById.fulfilled, (state, action) => {
+      .addCase(likeDiscussionCommentById.fulfilled, (state, action) => {
         const { id, userId, discussionId } = action.payload;
         state.comments[discussionId] = state.comments[discussionId].map((comment) => (comment.id === id
           ? { ...comment, likedBy: [...comment.likedBy, userId] }
@@ -223,7 +228,7 @@ const discussionSlice = createSlice({
       })
 
     // Unlike Comment
-      .addCase(unlikeCommentById.fulfilled, (state, action) => {
+      .addCase(unlikeDiscussionCommentById.fulfilled, (state, action) => {
         const { id, userId, discussionId } = action.payload;
         state.comments[discussionId] = state.comments[discussionId].map((comment) => (comment.id === id
           ? { ...comment, likedBy: comment.likedBy.filter((likedId) => likedId !== userId) }

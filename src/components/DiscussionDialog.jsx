@@ -3,6 +3,7 @@ import {
   Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField,
 } from '@mui/material';
 import useStringInput from '../hooks/useInput.js';
+import PropTypes from 'prop-types';
 
 function DiscussionDialog({ isOpen, onClose, onSubmit }) {
   const [title, setTitle] = useStringInput();
@@ -52,5 +53,11 @@ function DiscussionDialog({ isOpen, onClose, onSubmit }) {
     </Dialog>
   );
 }
+
+DiscussionDialog.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default DiscussionDialog;

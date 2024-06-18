@@ -3,6 +3,7 @@ import {
   Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField,
 } from '@mui/material';
 import useStringInput from '../hooks/useInput.js';
+import PropTypes from 'prop-types';
 
 function CommentDialog({ isOpen, onClose, onSubmit }) {
   const [content, setContent] = useStringInput();
@@ -42,5 +43,11 @@ function CommentDialog({ isOpen, onClose, onSubmit }) {
     </Dialog>
   );
 }
+
+CommentDialog.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default CommentDialog;

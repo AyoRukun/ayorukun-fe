@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import { clearRegions, fetchRegions } from '../states/region/regionSlice.js';
+import PropTypes from 'prop-types';
 
-export default function RegionSelect({ onSelectRegion }) {
+function RegionSelect({ onSelectRegion }) {
   const dispatch = useDispatch();
   const { regions, isLoading } = useSelector((state) => state.region);
   const [query, setQuery] = useState('');
@@ -63,3 +64,9 @@ export default function RegionSelect({ onSelectRegion }) {
     </FormControl>
   );
 }
+
+RegionSelect.propTypes = {
+  onSelectRegion: PropTypes.func.isRequired,
+};
+
+export default RegionSelect;

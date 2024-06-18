@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { checkToken, loginUser, registerUser } from '../../utils/api';
-import {startLoading, stopLoading} from "../loading/loadingSlice.js";
+import { startLoading, stopLoading } from '../loading/loadingSlice.js';
+import { toastError, toastSuccess } from '../../utils/toast.js';
 
 const initialState = {
   user: null,
@@ -81,10 +82,12 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload;
         state.error = null;
+        toastSuccess('Daftar berhasil!');
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toastError('Daftar gagal!');
       })
     // Login
       .addCase(login.pending, (state) => {
@@ -97,10 +100,12 @@ const authSlice = createSlice({
         state.token = action.payload.accessToken;
         state.isAuthenticated = true;
         state.error = null;
+        toastSuccess('Login berhasil!');
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toastError('Login gagal!');
       })
     // Check Auth
       .addCase(checkAuth.pending, (state) => {
@@ -123,6 +128,7 @@ const authSlice = createSlice({
         state.user = null;
         state.token = null;
         state.isAuthenticated = false;
+        toastSuccess('Logout berhasil!');
       });
   },
 });

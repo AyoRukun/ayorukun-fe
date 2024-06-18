@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATHS } from '../routes/index.jsx';
 import { login } from '../states/auth/authSlice';
 import useStringInput from '../hooks/useInput';
+import { toastError } from '../utils/toast.js';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -59,21 +60,6 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!isInputValidated()) return;
-
-    dispatch(login({ email, password }))
-      .unwrap()
-      .then(() => {
-        navigate(ROUTE_PATHS.HOME);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
-
   function clearError() {
     setPasswordError('');
     setEmailError('');
@@ -94,6 +80,21 @@ export default function SignIn() {
 
     return !hasError;
   }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!isInputValidated()) return;
+
+    dispatch(login({ email, password }))
+      .unwrap()
+      .then(() => {
+        navigate(ROUTE_PATHS.HOME);
+      })
+      .catch((error) => {
+        toastError(error);
+      });
+  };
 
   return (
     <ThemeProvider theme={theme}>

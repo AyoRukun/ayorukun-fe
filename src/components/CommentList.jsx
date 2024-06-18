@@ -1,56 +1,47 @@
-import {
-  Button, Card, CardContent, CardHeader, Stack, Typography,
-} from '@mui/material';
-import React, { useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
+import { Box, List, Typography } from '@mui/material';
+import React from 'react';
+import { Alert } from '@mui/lab';
 import { sortByCreatedAt } from '../utils/date.js';
 import CommentItem from './CommentItem.jsx';
-import CommentDialog from './CommentDialog.jsx';
+import PropTypes from 'prop-types';
 
-function CommentList({ comments, handleNewCommentSubmit, source }) {
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
+function CommentList({ comments, source }) {
   return (
-    <Card sx={{ mt: 2 }}>
-      <CommentDialog
-        isOpen={openDialog}
-        onClose={handleCloseDialog}
-        onSubmit={handleNewCommentSubmit}
-      />
-      <CardHeader
-        sx={{ pb: 0 }}
-        title={(
-          <Typography variant="h6" sx={{ mb: 0.5 }}>
-            {`Komentar (${comments.length || 0})`}
-          </Typography>
-                  )}
-        action={(
-          <Button
-            variant="contained"
-            onClick={handleOpenDialog}
-          >
-            <AddIcon />
-          </Button>
-                  )}
-      />
-
-      <CardContent>
-        <Stack direction="column" spacing={2}>
+    <Box>
+      <Typography variant="h5" sx={{ mb: 2 }}>Komentar</Typography>
+      {comments.length > 0 ? (
+        <List>
           {sortByCreatedAt(comments).map((comment) => (
             <CommentItem key={comment.id} comment={comment} source={source} />
           ))}
-        </Stack>
-      </CardContent>
-    </Card>
+        </List>
+      ) : (
+        <Alert severity="info" sx={{ mt: 2 }}>
+          Belum ada komentar. Jadilah yang pertama berbagi pendapat Anda!
+        </Alert>
+      )}
+
+    </Box>
+
   );
 }
+
+CommentList.propTypes = {
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      content: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      user: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        image_url: PropTypes.string.isRequired,
+      }).isRequired,
+      likedBy: PropTypes.arrayOf(PropTypes.number).isRequired,
+      discussion_id: PropTypes.number,
+      report_id: PropTypes.number,
+    }),
+  ).isRequired,
+  source: PropTypes.oneOf(['discussion', 'report']).isRequired,
+};
 
 export default CommentList;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormLabel from '@mui/material/FormLabel';
@@ -16,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATHS } from '../routes/index.jsx';
 import { register } from '../states/auth/authSlice';
 import useStringInput from '../hooks/useInput';
+import { toastError } from '../utils/toast.js';
+import Box from '@mui/material/Box';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -60,21 +61,6 @@ export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!isInputValidated()) return;
-
-    dispatch(register({ email, password }))
-      .unwrap()
-      .then(() => {
-        navigate(ROUTE_PATHS.SIGN_IN);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
-
   function clearError() {
     setPasswordError('');
     setEmailError('');
@@ -99,6 +85,21 @@ export default function SignUp() {
     }
     return !hasError;
   }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!isInputValidated()) return;
+
+    dispatch(register({ email, password }))
+      .unwrap()
+      .then(() => {
+        navigate(ROUTE_PATHS.SIGN_IN);
+      })
+      .catch((error) => {
+        toastError(error);
+      });
+  };
 
   return (
     <ThemeProvider theme={theme}>

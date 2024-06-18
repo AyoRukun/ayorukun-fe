@@ -21,26 +21,28 @@ import { BASE_URL } from '../utils/api.js';
 import { ROUTE_PATHS } from '../routes/index.jsx';
 import { likeReportById, unlikeReportById } from '../states/report/reportSlice.js';
 import ImageDialog from './ImageDialog.jsx';
+import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 function ReportItem({ report }) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth.user?.id);
+  const userId = useSelector((state) => state.auth.user.id);
   const isLiked = report.likedBy.includes(userId);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
 
   const handleLikeClick = () => {
+    if (!userId) {
+      toast.warn('Silakan login untuk menyukai laporan ini.');
+      return;
+    }
+
     if (isLiked) {
       dispatch(unlikeReportById(report.id));
     } else {
       dispatch(likeReportById(report.id));
     }
-  };
-
-  const handleImageClick = (imageUrl) => {
-    setSelectedImage(imageUrl);
-    handleOpenDialog();
   };
 
   const handleCloseDialog = () => {
@@ -51,8 +53,13 @@ function ReportItem({ report }) {
     setOpenDialog(true);
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    handleOpenDialog();
+  };
+
   return (
-    <Card key={report.id} sx={{ mt: 2 }}>
+    <Card sx={{ mb: 4, borderRadius: 8 }}>
       <ButtonBase
         component={Link}
         to={`${ROUTE_PATHS.REPORT}/${report.id}`}
@@ -89,38 +96,38 @@ function ReportItem({ report }) {
         </Typography>
 
         {report.report_files.length > 0 && (
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'flex',
-            gap: 1,
-            mt: 2,
-          }}
-        >
-          {report.report_files.map((file) => (
-            <Box
-              key={file.id}
-              onClick={() => handleImageClick(`${BASE_URL}/${file.path}`)}
-              sx={{
-                maxWidth: '100px',
-                maxHeight: '100px',
-                overflow: 'hidden',
-                cursor: 'pointer',
-              }}
-            >
-              <img
-                src={`${BASE_URL}/${file.path}`}
-                alt={`Report Image ${file.id}`}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  height: 'auto',
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'flex',
+              gap: 1,
+              mt: 2,
+            }}
+          >
+            {report.report_files.map((file) => (
+              <Box
+                key={file.id}
+                onClick={() => handleImageClick(`${BASE_URL}/${file.path}`)}
+                sx={{
+                  maxWidth: '100px',
+                  maxHeight: '100px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
                 }}
-              />
-            </Box>
-          ))}
-        </Box>
+              >
+                <img
+                  src={`${BASE_URL}/${file.path}`}
+                  alt={`Report File ${file.id}`}
+                  loading="lazy"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                  }}
+                />
+              </Box>
+            ))}
+          </Box>
         )}
 
         <ImageDialog
@@ -164,5 +171,29 @@ function ReportItem({ report }) {
     </Card>
   );
 }
+
+ReportItem.propTypes = {
+  report: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string,
+    content: PropTypes.string.isRequired,
+    region: PropTypes.string.isRequired,
+    school_name: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      image_url: PropTypes.string.isRequired,
+    }).isRequired,
+    report_as: PropTypes.string.isRequired,
+    report_files: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        path: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    totalComments: PropTypes.number.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    likedBy: PropTypes.arrayOf(PropTypes.number).isRequired,
+  }).isRequired,
+};
 
 export default ReportItem;

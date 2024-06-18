@@ -17,3 +17,9 @@ export function toastInfo(message) {
     position: 'top-right',
   });
 }
+
+export function toastWarning(message) {
+  toast.warn(message, {
+    position: 'top-right',
+  });
+}

@@ -1,4 +1,4 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../states/auth/authSlice';
 import discussionReducer from '../states/discussion/discusssionSlice';
 import regionReducer from '../states/region/regionSlice';

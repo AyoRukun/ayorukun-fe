@@ -24,8 +24,14 @@ export default [
       'import/no-named-as-default': 'off',
       'import/no-named-as-default-member': 'off',
       'no-param-reassign': 'off',
-      'import/extensions': 'off'
-
+      'import/extensions': 'off',
+      'import/order': 'off',
+      'react/jsx-no-useless-fragment': 'off',
+      'jsx-a11y/anchor-is-valid': 'off',
+      'camelcase': 'off',
+      'max-len': 'off',
+      'react/jsx-props-no-spreading': 'off',
+      'react/react-in-jsx-scope': 'off'
     }
   }
 ];
