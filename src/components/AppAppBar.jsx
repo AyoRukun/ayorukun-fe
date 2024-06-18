@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { ROUTE_PATHS } from '../routes/index';
 import { logout } from '../states/auth/authSlice.js';
 

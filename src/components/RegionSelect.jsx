@@ -21,7 +21,7 @@ function RegionSelect({ onSelectRegion }) {
       setSearchTimeout(
         setTimeout(() => {
           dispatch(fetchRegions(query));
-        }, 3000),
+        }, 300),
       );
     } else {
       dispatch(clearRegions());
@@ -47,7 +47,7 @@ function RegionSelect({ onSelectRegion }) {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Search Region"
+            label="Lokasi Kejadian"
             variant="outlined"
             InputProps={{
               ...params.InputProps,

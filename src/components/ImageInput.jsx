@@ -32,7 +32,7 @@ function ImageInput({ files, onFileChange }) {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Report Files"
+            label="Bukti Pendukung"
             disabled
             onClick={() => fileRef.current.click()}
             InputProps={{

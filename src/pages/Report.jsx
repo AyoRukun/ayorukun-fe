@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { fetchReports } from '../states/report/reportSlice';
 import ReportList from '../components/ReportList.jsx';
 import ReportHero from '../components/ReportHero.jsx';

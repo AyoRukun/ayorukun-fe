@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { checkAuth } from './states/auth/authSlice';
 import AppAppBar from './components/AppAppBar.jsx';
 import routes from './routes/routes.jsx';

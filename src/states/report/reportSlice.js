@@ -56,6 +56,7 @@ export const addReport = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await createReport(reportData);
+      dispatch(fetchReports());
       return response.data.report;
     } catch (error) {
       return rejectWithValue(error.message);

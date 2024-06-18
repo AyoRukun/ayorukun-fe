@@ -23,7 +23,7 @@ export default function ReportDialog({ isOpen, onClose, onSubmit }) {
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Create Report</DialogTitle>
+      <DialogTitle>Lapor Kejadian Perundungan</DialogTitle>
       <DialogContent>
         <ReportForm formData={formData} setFormData={setFormData} />
       </DialogContent>

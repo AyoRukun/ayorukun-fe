@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function ImageDialog({ isOpen, onClose, selectedImage }) {
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>Report Image</DialogTitle>
+      <DialogTitle>Bukti Laporan</DialogTitle>
       <DialogContent>
         <img
           src={selectedImage}

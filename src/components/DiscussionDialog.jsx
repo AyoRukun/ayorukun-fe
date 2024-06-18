@@ -16,10 +16,10 @@ function DiscussionDialog({ isOpen, onClose, onSubmit }) {
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>Create New Discussion</DialogTitle>
+      <DialogTitle>Tambah Diskusi Baru</DialogTitle>
       <DialogContent>
         <TextField
-          label="Title"
+          label="Judul"
           fullWidth
           name="title"
           value={title}
@@ -28,7 +28,7 @@ function DiscussionDialog({ isOpen, onClose, onSubmit }) {
           autoFocus
         />
         <TextField
-          label="Content"
+          label="Rincian.."
           fullWidth
           name="content"
           value={content}

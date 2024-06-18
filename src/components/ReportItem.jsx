@@ -9,12 +9,12 @@ import {
   IconButton,
   Stack,
   Typography,
+  Box,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import CommentIcon from '@mui/icons-material/Comment';
 import { ThumbUp, ThumbUpOffAlt } from '@mui/icons-material';
-import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import formatRelativeTime from '../utils/date.js';
 import { BASE_URL } from '../utils/api.js';

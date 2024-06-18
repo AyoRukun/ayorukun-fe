@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormLabel from '@mui/material/FormLabel';
@@ -9,8 +8,9 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { Card as MuiCard } from '@mui/material';
-import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
+import { Card as MuiCard, Box } from '@mui/material';
+import { styled, ThemeProvider } from '@mui/material/styles';
+import createTheme from '@mui/material/styles/createTheme';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATHS } from '../routes/index.jsx';

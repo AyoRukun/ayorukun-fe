@@ -28,7 +28,7 @@ function ReportForm({ formData, setFormData }) {
   return (
     <>
       <TextField
-        label="Title"
+        label="Judul"
         name="title"
         value={formData.title}
         onChange={handleInputChange}
@@ -36,7 +36,7 @@ function ReportForm({ formData, setFormData }) {
         margin="normal"
       />
       <TextField
-        label="Content"
+        label="Dekskripsi Kejadian"
         name="content"
         value={formData.content}
         onChange={handleInputChange}
@@ -46,15 +46,18 @@ function ReportForm({ formData, setFormData }) {
         margin="normal"
       />
       <TextField
-        label="School Name"
+        label="Nama Sekolah"
         name="school_name"
         value={formData.school_name}
         onChange={handleInputChange}
         fullWidth
         margin="normal"
       />
+
+      <RegionSelect onSelectRegion={handleRegionChange} />
+
       <TextField
-        label="Case Date"
+        label="Tanggal Kejadian"
         name="case_date"
         type="date"
         value={formData.case_date}
@@ -79,8 +82,6 @@ function ReportForm({ formData, setFormData }) {
           <MenuItem value="Saksi">Saksi</MenuItem>
         </Select>
       </FormControl>
-
-      <RegionSelect onSelectRegion={handleRegionChange} />
 
       <ImageInput files={formData.report_files} onFileChange={handleFileChange} />
 

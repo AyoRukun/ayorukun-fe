@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, Box } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ROUTE_PATHS } from '../routes/index.jsx';
 

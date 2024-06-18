@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import PropTypes from 'prop-types';
 import ReportItem from './ReportItem.jsx';

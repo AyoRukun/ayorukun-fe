@@ -56,6 +56,7 @@ export const addDiscussion = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await createDiscussion(discussionData);
+      dispatch(fetchDiscussions());
       return response.data.discussion;
     } catch (error) {
       return rejectWithValue(error.message);

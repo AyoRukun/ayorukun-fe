@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { fetchDiscussions } from '../states/discussion/discusssionSlice.js';
 import DiscussionList from '../components/DiscussionList.jsx';
 import DiscussionHero from '../components/DiscussionHero.jsx';
