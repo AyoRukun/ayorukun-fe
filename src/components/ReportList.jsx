@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
+import PropTypes from 'prop-types';
 import ReportItem from './ReportItem.jsx';
 import { sortByCreatedAt } from '../utils/date.js';
-import PropTypes from 'prop-types';
 
 function ReportList({ reports }) {
   const [page, setPage] = useState(1);

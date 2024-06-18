@@ -16,6 +16,7 @@ export default [
     files: ["**/*.js", "**/*.jsx"],
     languageOptions: {
       globals: {...globals.browser, ...globals.node},
+      ecmaVersion: 2020,
     }
   },
   ...compat.extends("airbnb"),
@@ -31,7 +32,8 @@ export default [
       'camelcase': 'off',
       'max-len': 'off',
       'react/jsx-props-no-spreading': 'off',
-      'react/react-in-jsx-scope': 'off'
+      'react/react-in-jsx-scope': 'off',
+      'react/require-default-props': 'off'
     }
   }
 ];

@@ -3,8 +3,8 @@ import {
 } from '@mui/material';
 import React from 'react';
 import CommentIcon from '@mui/icons-material/Comment';
-import formatRelativeTime from '../utils/date.js';
 import PropTypes from 'prop-types';
+import formatRelativeTime from '../utils/date.js';
 
 function DiscussionDetailCard({ discussion }) {
   const {

@@ -20,7 +20,7 @@ function ImageDialog({ isOpen, onClose, selectedImage }) {
 ImageDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  selectedImage: PropTypes.string.isRequired,
+  selectedImage: PropTypes.string,
 };
 
 export default ImageDialog;

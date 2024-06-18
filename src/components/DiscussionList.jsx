@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Pagination } from '@mui/material';
+import PropTypes from 'prop-types';
 import DiscussionItem from './DiscussionItem';
 import { sortByCreatedAt } from '../utils/date.js';
-import PropTypes from 'prop-types';
 
 function DiscussionList({ discussions }) {
   const [page, setPage] = useState(1);

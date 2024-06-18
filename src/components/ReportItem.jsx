@@ -26,7 +26,7 @@ import PropTypes from 'prop-types';
 
 function ReportItem({ report }) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth.user.id);
+  const userId = useSelector((state) => (state.auth.user ? state.auth.user.id : null));
   const isLiked = report.likedBy.includes(userId);
 
   const [openDialog, setOpenDialog] = useState(false);

@@ -4,9 +4,9 @@ import {
 } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
+import PropTypes from 'prop-types';
 import RegionSelect from './RegionSelect.jsx';
 import ImageInput from './ImageInput.jsx';
-import PropTypes from 'prop-types';
 
 function ReportForm({ formData, setFormData }) {
   const handleInputChange = (e) => {

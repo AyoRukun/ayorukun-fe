@@ -1,9 +1,9 @@
 import { Box, List, Typography } from '@mui/material';
 import React from 'react';
 import { Alert } from '@mui/lab';
+import PropTypes from 'prop-types';
 import { sortByCreatedAt } from '../utils/date.js';
 import CommentItem from './CommentItem.jsx';
-import PropTypes from 'prop-types';
 
 function CommentList({ comments, source }) {
   return (

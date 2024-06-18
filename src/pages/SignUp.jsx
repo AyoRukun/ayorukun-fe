@@ -12,11 +12,11 @@ import { Card as MuiCard } from '@mui/material';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
 import { ROUTE_PATHS } from '../routes/index.jsx';
 import { register } from '../states/auth/authSlice';
 import useStringInput from '../hooks/useInput';
 import { toastError } from '../utils/toast.js';
-import Box from '@mui/material/Box';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',

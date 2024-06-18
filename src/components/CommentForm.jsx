@@ -5,9 +5,9 @@ import {
 import { Send as SendIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { ROUTE_PATHS } from '../routes/index.jsx';
 import useStringInput from '../hooks/useInput.js';
-import PropTypes from 'prop-types';
 
 function CommentForm({ onAddComment, id }) {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -71,7 +71,7 @@ function CommentForm({ onAddComment, id }) {
 
 CommentForm.propTypes = {
   onAddComment: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default CommentForm;

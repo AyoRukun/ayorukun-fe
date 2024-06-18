@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 
 function CommentItem({ comment, source }) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth.user.id);
+  const userId = useSelector((state) => (state.auth.user ? state.auth.user.id : null));
   const isLiked = comment.likedBy.includes(userId);
 
   const handleLikeClick = () => {

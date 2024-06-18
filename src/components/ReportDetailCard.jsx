@@ -12,10 +12,10 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import CommentIcon from '@mui/icons-material/Comment';
+import PropTypes from 'prop-types';
 import formatRelativeTime from '../utils/date.js';
 import { BASE_URL } from '../utils/api.js';
 import ImageDialog from './ImageDialog.jsx';
-import PropTypes from 'prop-types';
 
 function ReportDetailCard({ report }) {
   const {

@@ -25,7 +25,7 @@ function DiscussionItem({ discussion }) {
   const {
     id, title, content, user, totalComments, createdAt, likedBy,
   } = discussion;
-  const userId = useSelector((state) => state.auth.user.id);
+  const userId = useSelector((state) => (state.auth.user ? state.auth.user.id : null));
   const isLiked = likedBy.includes(userId);
 
   const handleLikeDiscussion = () => {

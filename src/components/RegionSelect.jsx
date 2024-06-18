@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
-import { clearRegions, fetchRegions } from '../states/region/regionSlice.js';
 import PropTypes from 'prop-types';
+import { clearRegions, fetchRegions } from '../states/region/regionSlice.js';
 
 function RegionSelect({ onSelectRegion }) {
   const dispatch = useDispatch();

@@ -2,8 +2,8 @@ import React from 'react';
 import {
   Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField,
 } from '@mui/material';
-import useStringInput from '../hooks/useInput.js';
 import PropTypes from 'prop-types';
+import useStringInput from '../hooks/useInput.js';
 
 function CommentDialog({ isOpen, onClose, onSubmit }) {
   const [content, setContent] = useStringInput();

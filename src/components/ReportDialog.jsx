@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {
   Button, Dialog, DialogActions, DialogContent, DialogTitle,
 } from '@mui/material';
-import ReportForm from './ReportForm.jsx';
 import PropTypes from 'prop-types';
+import ReportForm from './ReportForm.jsx';
 
 export default function ReportDialog({ isOpen, onClose, onSubmit }) {
   const [formData, setFormData] = useState({

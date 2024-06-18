@@ -1,90 +1,87 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { ROUTE_PATHS } from '../routes/index.jsx';
 
 function AppFooter() {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box sx={{
-      bgcolor: '#FADEFF', height: '30vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+      bgcolor: '#FADEFF',
+      height: isMobile ? 'auto' : '30vh',
+      p: 3,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
     }}
     >
-      <Stack direction="row" gap={20}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Box>
-            <img src="/ayorukun.svg" alt="" height={100} />
-          </Box>
-          <Box>
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item xs={12} sm={6} md={4} sx={{ textAlign: 'center' }}>
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <img src="/ayorukun.svg" alt="Logo" height={100} />
             <Typography variant="h5" component="h1" gutterBottom>AyoRukun</Typography>
             <Typography variant="subtitle1" component="h1" gutterBottom>
               Sikapilah toleransi terhadap perbedaan pendapat dan kepercayaan.
             </Typography>
           </Box>
-        </Box>
-        <Box sx={{
-          display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',
-        }}
-        >
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} sx={{ textAlign: 'center' }}>
           <Typography variant="h5" component="h1" gutterBottom>Fitur</Typography>
-          <Link
-            color="inherit"
-            underline="none"
-            component="button"
-            variant="body2"
-            onClick={() => {
-              navigate(ROUTE_PATHS.HOME, { replace: true });
-            }}
-          >
-            Beranda
-          </Link>
-          <Link
-            color="inherit"
-            underline="none"
-            component="button"
-            variant="body2"
-            onClick={() => {
-              navigate(ROUTE_PATHS.DISCUSSION, { replace: true });
-            }}
-          >
-            Diskusi
-          </Link>
-          <Link
-            color="inherit"
-            underline="none"
-            component="button"
-            variant="body2"
-            onClick={() => {
-              navigate(ROUTE_PATHS.REPORT, { replace: true });
-            }}
-          >
-            Pelaporan
-          </Link>
-          <Link
-            color="inherit"
-            underline="none"
-            component="button"
-            variant="body2"
-            onClick={() => {
-              navigate(ROUTE_PATHS.ABOUT, { replace: true });
-            }}
-          >
-            Tentang
-          </Link>
-        </Box>
-        <Box sx={{
-          display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',
-        }}
-        >
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <Link
+              color="inherit"
+              underline="none"
+              component="button"
+              variant="body2"
+              onClick={() => navigate(ROUTE_PATHS.HOME, { replace: true })}
+            >
+              Beranda
+            </Link>
+            <Link
+              color="inherit"
+              underline="none"
+              component="button"
+              variant="body2"
+              onClick={() => navigate(ROUTE_PATHS.DISCUSSION, { replace: true })}
+            >
+              Diskusi
+            </Link>
+            <Link
+              color="inherit"
+              underline="none"
+              component="button"
+              variant="body2"
+              onClick={() => navigate(ROUTE_PATHS.REPORT, { replace: true })}
+            >
+              Pelaporan
+            </Link>
+            <Link
+              color="inherit"
+              underline="none"
+              component="button"
+              variant="body2"
+              onClick={() => navigate(ROUTE_PATHS.ABOUT, { replace: true })}
+            >
+              Tentang
+            </Link>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} sx={{ textAlign: 'center' }}>
           <Typography variant="h5" component="h1" gutterBottom>Tentang</Typography>
           <Typography variant="subtitle1" component="h1" gutterBottom>
             Hubungi kami jika terdapat kendala saat menggunakan website satu hati.
           </Typography>
-        </Box>
-      </Stack>
+        </Grid>
+      </Grid>
     </Box>
   );
 }
