@@ -28,6 +28,7 @@ function ReportHero() {
 
   const handleAddReport = (formData) => {
     dispatch(addReport(formData));
+      console.log("tes ")
   };
 
   return (

@@ -103,7 +103,6 @@ export async function createReport(reportData) {
     const token = localStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
     };
 
     const formData = new FormData();
