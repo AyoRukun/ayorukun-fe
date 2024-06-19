@@ -193,9 +193,8 @@ const discussionSlice = createSlice({
       })
       .addCase(addDiscussionComment.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { discussionId, comment } = action.payload;
-        state.comments[discussionId] = state.comments[discussionId] || [];
-        state.comments[discussionId].push(comment);
+        const { comment } = action.payload;
+        state.discussion.comments.push(comment);
         toastSuccess('Komentar berhasil ditambahkan!');
       })
       .addCase(addDiscussionComment.rejected, (state, action) => {
@@ -206,33 +205,33 @@ const discussionSlice = createSlice({
 
     // Like Discussion
       .addCase(likeDiscussionById.fulfilled, (state, action) => {
-        const { id, userId } = action.payload;
-        state.discussions = state.discussions.map((discussion) => (discussion.id === id
-          ? { ...discussion, likedBy: [...discussion.likedBy, userId] }
+        const { discussion_id, user_id } = action.payload.vote;
+        state.discussions = state.discussions.map((discussion) => (discussion.id === discussion_id
+          ? { ...discussion, likedBy: [...discussion.likedBy, user_id] }
           : discussion));
       })
 
     // Unlike Discussion
       .addCase(unlikeDiscussionById.fulfilled, (state, action) => {
-        const { id, userId } = action.payload;
-        state.discussions = state.discussions.map((discussion) => (discussion.id === id
-          ? { ...discussion, likedBy: discussion.likedBy.filter((likedId) => likedId !== userId) }
+        const { discussion_id, user_id } = action.payload.vote;
+        state.discussions = state.discussions.map((discussion) => (discussion.id === discussion_id
+          ? { ...discussion, likedBy: discussion.likedBy.filter((likedId) => likedId !== user_id) }
           : discussion));
       })
 
     // Like Comment
       .addCase(likeDiscussionCommentById.fulfilled, (state, action) => {
-        const { id, userId, discussionId } = action.payload;
-        state.comments[discussionId] = state.comments[discussionId].map((comment) => (comment.id === id
-          ? { ...comment, likedBy: [...comment.likedBy, userId] }
+        const { comment_id, user_id } = action.payload.vote;
+        state.discussion.comments = state.discussion.comments.map((comment) => (comment.id === comment_id
+          ? { ...comment, likedBy: [...comment.likedBy, user_id] }
           : comment));
       })
 
     // Unlike Comment
       .addCase(unlikeDiscussionCommentById.fulfilled, (state, action) => {
-        const { id, userId, discussionId } = action.payload;
-        state.comments[discussionId] = state.comments[discussionId].map((comment) => (comment.id === id
-          ? { ...comment, likedBy: comment.likedBy.filter((likedId) => likedId !== userId) }
+        const { comment_id, user_id } = action.payload.vote;
+        state.discussion.comments = state.discussion.comments.map((comment) => (comment.id === comment_id
+          ? { ...comment, likedBy: comment.likedBy.filter((likedId) => likedId !== user_id) }
           : comment));
       });
   },
