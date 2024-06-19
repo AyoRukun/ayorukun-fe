@@ -193,9 +193,8 @@ const reportSlice = createSlice({
       })
       .addCase(addReportComment.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { reportId, comment } = action.payload;
-        state.comments[reportId] = state.comments[reportId] || [];
-        state.comments[reportId].push(comment);
+        const { comment } = action.payload;
+        state.report.comments.push(comment);
         toastSuccess('Komentar berhasil ditambahkan!');
       })
       .addCase(addReportComment.rejected, (state, action) => {
@@ -206,33 +205,33 @@ const reportSlice = createSlice({
 
     // Like Report
       .addCase(likeReportById.fulfilled, (state, action) => {
-        const { reportId, userId } = action.payload.vote;
-        state.reports = state.reports.map((report) => (report.id === reportId
-          ? { ...report, likedBy: [...report.likedBy, userId] }
+        const { report_id, user_id } = action.payload.vote;
+        state.reports = state.reports.map((report) => (report.id === report_id
+          ? { ...report, likedBy: [...report.likedBy, user_id] }
           : report));
       })
 
     // Unlike Report
       .addCase(unlikeReportById.fulfilled, (state, action) => {
-        const { reportId, userId } = action.payload.vote;
-        state.reports = state.reports.map((report) => (report.id === reportId
-          ? { ...report, likedBy: report.likedBy.filter((id) => id !== userId) }
+        const { report_id, user_id } = action.payload.vote;
+        state.reports = state.reports.map((report) => (report.id === report_id
+          ? { ...report, likedBy: report.likedBy.filter((id) => id !== user_id) }
           : report));
       })
 
     // Like Report Comment
       .addCase(likeReportCommentById.fulfilled, (state, action) => {
-        const { reportId, commentId, userId } = action.payload.vote;
-        state.comments[reportId] = state.comments[reportId].map((comment) => (comment.id === commentId
-          ? { ...comment, likedBy: [...comment.likedBy, userId] }
+        const { comment_id, user_id } = action.payload.vote;
+        state.report.comments = state.report.comments.map((comment) => (comment.id === comment_id
+          ? { ...comment, likedBy: [...comment.likedBy, user_id] }
           : comment));
       })
 
     // Unlike Report Comment
       .addCase(unlikeReportCommentById.fulfilled, (state, action) => {
-        const { reportId, commentId, userId } = action.payload.vote;
-        state.comments[reportId] = state.comments[reportId].map((comment) => (comment.id === commentId
-          ? { ...comment, likedBy: comment.likedBy.filter((id) => id !== userId) }
+        const { comment_id, user_id } = action.payload.vote;
+        state.report.comments = state.report.comments.map((comment) => (comment.id === comment_id
+          ? { ...comment, likedBy: comment.likedBy.filter((id) => id !== user_id) }
           : comment));
       });
   },
